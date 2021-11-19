@@ -1,7 +1,12 @@
 ---
 title: "Programação básica em R - aula 1"
 author: "Vitor Hugo Miro - (PPGER/UFC)"
-output: html_notebook
+output:
+  html_notebook:
+    toc: yes
+  html_document:
+    toc: yes
+    toc_float: yes
 ---
 
 ## Aritmética
@@ -81,7 +86,7 @@ pets <- caes + gatos
 pets
 ```
 
-### Cães e gatos
+**EXEMPLO. Cães e gatos**
 O conhecimento comum diz que não devemos somar cães e gatos (assim com não deveríamos somar laranjas e maçãs). Mas foi isso que acabamos de fazer, não :-)? As variáveis `caes` e `gatos` continham um número no exemplo anterior.
 
 O operador `+` trabalha com variáveis numéricas em R.

@@ -1,0 +1,47 @@
+---
+title: "Data Wrangling"
+output: html_notebook
+---
+
+## Data Wrangling
+
+**Data Wrangling** é o processo de limpar e manipular os dados.
+
+
+## Tidyverse
+
+O **tidyverse** é um pacote guarda-chuva que consolida uma série de ferramentas que fazem parte o ciclo da ciência de dados. Desenvolvido 
+
+Fazem parte do {tidyverse} os pacotes {ggplot2}, {dplyr}, {tidyr}, {purrr}, {readr}, entre muitos outros.
+
+Aqui usaremos com maior intensidade o pacote dplyr.
+
+
+```{r}
+library(tidyverse)     ## install.packages("tidyverse")
+```
+
+
+Nesta nota vamos usar os dados projeto **Gapminder**, criado por Hans Rosling, que é famoso por suas apresentações.
+
+Usaremos a função `read_csv()` do pacote `readr` (que é parte do tidyverse).
+
+```{r}
+## ler dados brutos do gapminder usando uma url
+gapminder <- readr::read_csv('https://raw.githubusercontent.com/OHI-Science/data-science-training/master/data/gapminder.csv') 
+```
+
+Vamos inspecionar os dados:
+
+```{r}
+head(gapminder) # shows first 6
+```
+
+
+```{r}
+tail(gapminder) # shows last 6
+```
+
+```{r}
+str(gapminder)
+```
