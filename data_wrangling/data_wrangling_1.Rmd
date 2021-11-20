@@ -17,10 +17,12 @@ Fazem parte do {tidyverse} os pacotes {ggplot2}, {dplyr}, {tidyr}, {purrr}, {rea
 Aqui usaremos com maior intensidade o pacote dplyr.
 
 
-```{r}
+```{r, message = FALSE}
 library(tidyverse)     ## install.packages("tidyverse")
 ```
 
+
+## Funções básicas para explorar um conjunto de dados
 
 Nesta nota vamos usar os dados projeto **Gapminder**, criado por Hans Rosling, que é famoso por suas apresentações.
 
@@ -34,14 +36,90 @@ gapminder <- readr::read_csv('https://raw.githubusercontent.com/OHI-Science/data
 Vamos inspecionar os dados:
 
 ```{r}
-head(gapminder) # shows first 6
+head(gapminder) # mostra 6 primeiras linhas
 ```
 
 
 ```{r}
-tail(gapminder) # shows last 6
+tail(gapminder) # mostra 6 ultimas linhas
 ```
 
 ```{r}
 str(gapminder)
 ```
+
+```{r}
+names(gapminder)  # nomes das variaveis
+dim(gapminder)    # dimensão
+ncol(gapminder)   # numero de colunas
+nrow(gapminder)   # numero de linhas
+```
+
+Uma visão estatística geral pode ser obtida com `summary()`, ou `comskimr::skim()`.
+
+```{r}
+summary(gapminder)
+```
+
+```{r}
+library(skimr) # install.packages('skimr')
+skim(gapminder)
+```
+
+Para especificar uma única variável de um data.frame, use 
+
+O cifrão `$` é um operador comum no R. Este operador é uma forma de extrair ou substituir peças de um objeto. Podemos usá-lo para especificar uma única variável de um Data Frame.
+
+```{r}
+gapminder$lifeExp
+```
+
+
+```{r}
+head(gapminder$lifeExp)
+str(gapminder$lifeExp)
+summary(gapminder$lifeExp)
+```
+
+## Transformação de dados com o `dplyr`
+
+O `dplyr` é um pacote base do *tidyverse*, sendo carregado quando executamos a biblioteca *tidyverse* anteriormente. É um pacote projetado especificamente para o processo de data wrangling, cobrndo uma série de funções para manipulação e transformação dos dados.
+
+As cinco funções básicas do `dplyr` são as seguintes:
+- `filter()` para selecionar observações segundo valores específicos;
+- `select()` para selecionar variáveis por seus nomes;
+- `mutate()` para criar variáveis a partir de variáveis existentes;
+- `arrange()` para reordenar linhas;
+- `summarize()` para resumir valores.
+
+### Filter
+
+```{r}
+filter(gapminder, lifeExp < 29)
+```
+
+```{r}
+filter(gapminder, country=="Brazil")
+```
+
+
+```{r}
+filter(gapminder, country == "Brazil", year == 2007)
+```
+
+E se quisermos filtrar dois países? Neste caso não podemos usar o operador "==", porque ele só pode operar uma coisa de cada vez. Usaremos o operador "%in%" e passamos um vetor.
+Vamos selecionar Brasil e Argentina no Data Frame.
+
+```{r}
+filter(gapminder, country %in% c("Brazil", "Argentina"))
+```
+
+```{r}
+filter(gapminder, country %in% c("Brazil", "Argentina"), year == "2007")
+```
+Expecativa de vida nas Americas em 2007.
+```{r}
+americas <- filter(gapminder, continent == "Americas", year == "2007")
+mean(americas$lifeExp)
+```
+
