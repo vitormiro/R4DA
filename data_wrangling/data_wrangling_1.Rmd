@@ -92,7 +92,9 @@ As cinco funções básicas do `dplyr` são as seguintes:
 - `arrange()` para reordenar linhas;
 - `summarize()` para resumir valores.
 
-### Filter
+## Filter
+
+Podemos filtrar ou selecionar valores de uma coluna da base de dados com base em algum critério, utilizamos a função `filter()`.
 
 ```{r}
 filter(gapminder, lifeExp < 29)
@@ -124,25 +126,29 @@ mean(americas$lifeExp)
 ```
 
 ## Select
+O `select()` permite selecionar variáveis ou colunas especificas no conjunto de dados. Com o `select()`podemos selecionar um conjunto de variáveis.
 
-O `select()` permite selecionar variáveis ou colunas especificas no conjunto de dados.
-
-Com o `select()`podemos selecionar um conjunto de variáveis.
+O primeiro argumento da função é a base de dados e os demais argumentos são os nomes das colunas que você gostaria de selecionar. Repare que você não precisa colocar o nome da coluna entre aspas.
 
 ```{r}
 select(gapminder, year, country, lifeExp) 
 ```
 
 Usando o sinal "-", podemos excluir colunas da seleção.
-
 ```{r}
 select(gapminder, -continent, -pop)
 ```
-## O operador pipe ` %>% `
+## O operador pipe ` %>% `.
+
+O operador `%>%` (pipe) foi uma das grandes revoluções recentes do R, tornando a escrita e leitura de códigos mais intuitiva e compreensível. Ele foi introduzido por Stefan Milton Bache no pacote `magrittr`.
+
+A ideia do operador `%>%` (pipe) é bem simples: usar o valor resultante da expressão do lado esquerdo como primeiro argumento da função do lado direito
+
 
 ```{r}
 gapminder %>% head()
 ```
+Vamos usar o pipe `%>%` em um exemplo em que aplicamos as funções `filter()` e `select()`.
 
 ```{r}
 ## ao invés disso...
@@ -161,7 +167,79 @@ gap_brazil_2
 
 
 ## Mutate
+Podemos modificar uma coluna existente ou criar uma nova coluna, utilizamos a função `mutate()`.
+
+```{r}
+gapminder %>% mutate(gdp = pop * gdpPercap)
+```
+
+```{r}
+gapminder %>% filter(continent == "Americas", year == 2007) %>%
+    mutate(pop_milhares = pop/1000) %>% 
+    select(country, year, pop_milhares)
+```
+
+
+## Summarise
+Sumarização é a técnica de se resumir um conjunto de dados utilizando alguma métrica de interesse. Estatísticas como a média, a mediana, a variância, a frequência, a proporção, por exemplo, são tipos de sumarização que trazem diferentes informações sobre uma variável.
+
+Para sumarizar uma coluna do conjunto de dados, podemos aplicar a função `summarise()`. 
+
+```{r}
+gapminder %>% summarise(gdp_pc_mean = mean(gdpPercap))
+```
+
+```{r}
+gapminder %>% summarise(media_gdp = mean(gdpPercap),
+                        dp_gdp = sd(gdpPercap),
+                        min_gdp = min(gdpPercap),
+                        max_gpd = max(gdpPercap))
+
+```
+
+## A função `group_by()`
+Em diversas situações queremos sumarizar uma coluna agrupada pelas categorias de uma segunda coluna. Para isso, podemos aplicar a função `group_by()`.
+
+
+```{r}
+gapminder %>%
+    group_by(continent) %>%
+    summarize(media_gdp = mean(gdpPercap)) %>%
+    ungroup()
+```
+
+
+```{r}
+gapminder %>%
+    group_by(continent, year) %>%
+    summarize(media_gdp = mean(gdpPercap)) %>%
+    ungroup()
+```
+
+
+```{r}
+gapminder %>%
+    filter(year == 2007) %>% 
+    group_by(continent) %>%
+    summarize(media_gdp = mean(gdpPercap)) %>%
+    ungroup()
+```
+
 
 ## Arrange
 
-## Summarize
+A função `arrange()` permite ordenar as linhas do Data Frame.
+
+```{r}
+gapminder %>%
+    group_by(continent, year) %>%
+    summarize(media_gdp = mean(gdpPercap)) %>%
+    arrange(year)
+```
+
+```{r}
+gapminder %>%
+    group_by(continent, year) %>%
+    summarize(media_gdp = mean(gdpPercap)) %>%
+    arrange(desc(year))
+```
