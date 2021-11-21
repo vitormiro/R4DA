@@ -117,9 +117,51 @@ filter(gapminder, country %in% c("Brazil", "Argentina"))
 ```{r}
 filter(gapminder, country %in% c("Brazil", "Argentina"), year == "2007")
 ```
-Expecativa de vida nas Americas em 2007.
+Expecativa de vida média nas Americas em 2007.
 ```{r}
 americas <- filter(gapminder, continent == "Americas", year == "2007")
 mean(americas$lifeExp)
 ```
 
+## Select
+
+O `select()` permite selecionar variáveis ou colunas especificas no conjunto de dados.
+
+Com o `select()`podemos selecionar um conjunto de variáveis.
+
+```{r}
+select(gapminder, year, country, lifeExp) 
+```
+
+Usando o sinal "-", podemos excluir colunas da seleção.
+
+```{r}
+select(gapminder, -continent, -pop)
+```
+## O operador pipe ` %>% `
+
+```{r}
+gapminder %>% head()
+```
+
+```{r}
+## ao invés disso...
+gap_brazil <- filter(gapminder, country == "Brazil")
+gap_brazil <- select(gap_brazil, -continent, -pop)
+gap_brazil
+```
+
+```{r}
+## ...podemos fazer isso
+gap_brazil_2  <- gapminder %>% 
+    filter(country == "Brazil") %>% 
+    select(-continent, -pop)
+gap_brazil_2
+```
+
+
+## Mutate
+
+## Arrange
+
+## Summarize
