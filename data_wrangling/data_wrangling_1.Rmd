@@ -23,7 +23,6 @@ library(tidyverse)     ## install.packages("tidyverse")
 
 
 ## Funções básicas para explorar um conjunto de dados
-
 Nesta nota vamos usar os dados projeto **Gapminder**, criado por Hans Rosling, que é famoso por suas apresentações.
 
 Usaremos a função `read_csv()` do pacote `readr` (que é parte do tidyverse).
@@ -82,7 +81,6 @@ summary(gapminder$lifeExp)
 ```
 
 ## Transformação de dados com o `dplyr`
-
 O `dplyr` é um pacote base do *tidyverse*, sendo carregado quando executamos a biblioteca *tidyverse* anteriormente. É um pacote projetado especificamente para o processo de data wrangling, cobrndo uma série de funções para manipulação e transformação dos dados.
 
 As cinco funções básicas do `dplyr` são as seguintes:
@@ -92,8 +90,20 @@ As cinco funções básicas do `dplyr` são as seguintes:
 - `arrange()` para reordenar linhas;
 - `summarize()` para resumir valores.
 
-## Filter
+## Rename
+A função "rename" permite alterar o nome das variáveis do Data Frame.
 
+
+```{r}
+df <- rename(gapminder,
+             pais = country,
+             ano = year,
+             continente = continent,
+             expec_vida = lifeExp,
+             pib_pc = gdpPercap)
+```
+
+## Filter
 Podemos filtrar ou selecionar valores de uma coluna da base de dados com base em algum critério, utilizamos a função `filter()`.
 
 ```{r}
@@ -138,6 +148,7 @@ Usando o sinal "-", podemos excluir colunas da seleção.
 ```{r}
 select(gapminder, -continent, -pop)
 ```
+
 ## O operador pipe ` %>% `.
 
 O operador `%>%` (pipe) foi uma das grandes revoluções recentes do R, tornando a escrita e leitura de códigos mais intuitiva e compreensível. Ele foi introduzido por Stefan Milton Bache no pacote `magrittr`.
