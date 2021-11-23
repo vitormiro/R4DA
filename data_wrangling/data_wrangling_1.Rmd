@@ -32,20 +32,24 @@ Usaremos a função `read_csv()` do pacote `readr` (que é parte do tidyverse).
 gapminder <- readr::read_csv('https://raw.githubusercontent.com/OHI-Science/data-science-training/master/data/gapminder.csv') 
 ```
 
-Vamos inspecionar os dados:
+Vamos inspecionar os dados.
+A função `head()` permite visualizar as 6 primeiras linhas.
 
 ```{r}
 head(gapminder) # mostra 6 primeiras linhas
 ```
-
+A função `tail()` permite visualizar as 6 últimas linhas.
 
 ```{r}
 tail(gapminder) # mostra 6 ultimas linhas
 ```
+A função `str()` mostra a estrutura do conjunto de dados.
 
 ```{r}
 str(gapminder)
 ```
+
+Algumas funções adicionais.
 
 ```{r}
 names(gapminder)  # nomes das variaveis
@@ -60,19 +64,21 @@ Uma visão estatística geral pode ser obtida com `summary()`, ou `comskimr::ski
 summary(gapminder)
 ```
 
+Uma visão estatística geral também pode ser obtida o `comskimr::skim()`, que apresenta algumas informações gerais do conjunto de dados.
 ```{r}
 library(skimr) # install.packages('skimr')
-skim(gapminder)
+#skim(gapminder)
 ```
 
-Para especificar uma única variável de um data.frame, use 
-
+Para especificar uma única variável de um data.frame, podemos usar o cifrão `$`.
 O cifrão `$` é um operador comum no R. Este operador é uma forma de extrair ou substituir peças de um objeto. Podemos usá-lo para especificar uma única variável de um Data Frame.
 
 ```{r}
-gapminder$lifeExp
+# Esse comando vai apresentar todos os valores da variável.
+#gapminder$lifeExp
 ```
 
+Vejamos alguns exemplos.
 
 ```{r}
 head(gapminder$lifeExp)
@@ -105,6 +111,16 @@ df <- rename(gapminder,
 
 ## Filter
 Podemos filtrar ou selecionar valores de uma coluna da base de dados com base em algum critério, utilizamos a função `filter()`.
+
+Especificando critérios, a função `filter()` permite gerar subconjuntos do dataset
+
+Os principais operadores lógicos são:
+
+-  `==`: igual
+-  `!=`: diferente
+-  `>` e `<`: maior e menor (podem conter o igual >= e <=)
+-  `&`: indica "E"
+-  `|`: indica "OU"
 
 ```{r}
 filter(gapminder, lifeExp < 29)
