@@ -1,0 +1,38 @@
+---
+title: "Visualização de dados"
+output: html_notebook
+---
+
+## Introdução
+Por causa da maneira como o cérebro humano processa informações, usar gráficos e diagramas para visualizar dados e informações é mais didático do que apresentar as mesmas informações na forma de escrita ou em planilhas. A mente humana é muito receptiva à informação visual, e é por isso que a visualização de dados é uma ferramenta poderosa para a comunicação.
+
+A visualização de dados é uma maneira simples e rápida de transmitir conceitos.
+
+A visualização de dados pode ser usada para:
+
+- Tornar os dados atraentes e fáceis de entender
+- Identificar tendências e situações atípicas dentro de um conjunto de dados
+- Contar uma história encontrada nos dados
+- Reforçar um argumento ou opinião
+- Destacar um ponto importante em um conjunto de dados
+
+## `ggplot2`
+A produção de gráficos e visualizações a partir de dados é um dos pontos fortes do R.
+R possui vários sistemas para fazer gráficos, mas o pacote `ggplot2` é um dos mais elegantes e versáteis.
+
+O `ggplot2`, um dos principais membros do tidyverse.
+
+```{r}
+library(tidyverse)
+```
+
+O primeiro passo para aprender a usar a gramática de gráficos do `ggplot2` é ser capaz de decompor um gráfico em componentes. Nesse sentido, vamos falar um pouco sobre a terminologia do `ggplot2`.
+
+Os três principais componentes a serem observados são:
+
+- *Dados*
+- *Geometria* : diagrama de dispersão, barras, histogramas, densidades, qqplot e boxplot.
+- *Mapeamento estético* : escalas, cores.
+
+
+
