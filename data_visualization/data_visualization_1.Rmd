@@ -35,4 +35,40 @@ Os três principais componentes a serem observados são:
 - *Mapeamento estético* : escalas, cores.
 
 
+A primeira etapa na criação de um gráfico com o `ggplot2` é definir um **objeto** no `ggplot`. Fazemos isso com a função `ggplot`, que inicializa o gráfico. Se lermos o arquivo de ajuda para esta função, veremos que o primeiro argumento é usado para especificar quais dados estão associados a este objeto.
+
+
+```{r}
+library(gapminder)
+gapminder
+```
+
+
+
+```{r}
+ggplot(data = gapminder)
+```
+Também podemos fazer isso usando o pipe.
+```{r}
+gapminder %>% ggplot
+```
+Ele renderiza um gráfico, neste caso uma lousa em branco, uma vez que nenhuma geometria foi definida. A única escolha de estilo que vemos é um fundo cinza.
+
+
+Com o `ggplot2`nós criamos gráficos adicionando camadas. As camadas podem definir **geometrias**, calcular estatísticas de resumo, definir quais escalas usar ou até mesmo alterar estilos. Para adicionar camadas, usamos o símbolo `+`.
+
+Normalmente, a primeira camada adicionada define a geometria. Se queremos fazer um gráfico de dispersão usamos a função `geom_point`; um gráfico de barras `geom_bar` ou um histograma `geom_histogram`.
+
+Os **mapeamentos estéticos** descrevem como as propriedades dos dados se conectam aos recursos do gráfico, como distância ao longo de um eixo, tamanho ou cor. A função `aes` conecta os dados com o que vemos no gráfico, definindo mapeamentos estéticos e será uma das funções que você usa com mais frequência ao plotar.
+
+O resultado da função `aes` é freqüentemente usado como o argumento de uma função geométrica.
+
+Este exemplo produz um gráfico de dispersão entre o PIB per capita e a expectativa de vida.
+
+```{r}
+gapminder %>% ggplot() + 
+  geom_point(aes(x =gdpPercap, y = lifeExp))
+```
+
+
 
