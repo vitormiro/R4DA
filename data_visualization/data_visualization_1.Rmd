@@ -20,7 +20,9 @@ A visualização de dados pode ser usada para:
 A produção de gráficos e visualizações a partir de dados é um dos pontos fortes do R.
 R possui vários sistemas para fazer gráficos, mas o pacote `ggplot2` é um dos mais elegantes e versáteis.
 
-O `ggplot2`, um dos principais membros do tidyverse.
+O `ggplot2` é um pacote de visualização de dados criado por Hadley Wickham em 2005, baseado no livro 'Grammar of Graphics', de Leland Wilkinson. 
+
+O `ggplot2` é um dos principais membros do *tidyverse*.
 
 ```{r}
 library(tidyverse)
@@ -37,20 +39,20 @@ Os três principais componentes a serem observados são:
 
 A primeira etapa na criação de um gráfico com o `ggplot2` é definir um **objeto** no `ggplot`. Fazemos isso com a função `ggplot`, que inicializa o gráfico. Se lermos o arquivo de ajuda para esta função, veremos que o primeiro argumento é usado para especificar quais dados estão associados a este objeto.
 
+No presente exemplo vamos usar a base de dados `iris`
 
 ```{r}
-library(gapminder)
-gapminder
+data(iris)
+head(iris)
 ```
 
 
-
 ```{r}
-ggplot(data = gapminder)
+ggplot(data = iris)
 ```
 Também podemos fazer isso usando o pipe.
 ```{r}
-gapminder %>% ggplot
+iris %>% ggplot
 ```
 Ele renderiza um gráfico, neste caso uma lousa em branco, uma vez que nenhuma geometria foi definida. A única escolha de estilo que vemos é um fundo cinza.
 
@@ -63,12 +65,116 @@ Os **mapeamentos estéticos** descrevem como as propriedades dos dados se conect
 
 O resultado da função `aes` é freqüentemente usado como o argumento de uma função geométrica.
 
-Este exemplo produz um gráfico de dispersão entre o PIB per capita e a expectativa de vida.
+Este exemplo produz um gráfico de dispersão (função geométrica `geom_point()`) entre o PIB per capita e a expectativa de vida.
 
 ```{r}
-gapminder %>% ggplot() + 
-  geom_point(aes(x =gdpPercap, y = lifeExp))
+iris %>% ggplot() + 
+  geom_point(aes(x=Petal.Length, y=Petal.Width))
 ```
+
+
+```{r}
+iris %>% ggplot() + 
+  geom_point(aes(x=Petal.Length, y=Petal.Width, color = Species))
+```
+
+```{r}
+ggplot(iris, aes(x = Petal.Length, 
+                 y = Petal.Width,
+                 color = Species)) +
+geom_point()
+```
+No exemplo a seguir o mapeamento estético ocorre na função de geometria.
+Isso é necessário se todas as camadas não devem herdar a mesma estética ou se estivermos combinando diferentes fontes de dados.
+
+```{r}
+ggplot(iris) + 
+    geom_point(aes(x = Petal.Length, 
+                   y = Petal.Width, 
+                   color = Species))
+```
+
+```{r}
+ggplot(iris, aes(x = Petal.Length, 
+                 y = Petal.Width)) +
+    geom_point(color = "red")
+```
+
+```{r}
+ggplot(iris, aes(x = Petal.Length, 
+                 y = Petal.Width)) +
+    geom_point(size = 5)
+```
+
+```{r}
+ggplot(iris, aes(x = Petal.Length, 
+                 y = Petal.Width, 
+                 color = Species)) +
+    geom_point(position = "jitter")
+```
+
+```{r}
+ggplot(iris, aes(x = Petal.Length, 
+                 y = Petal.Width, 
+                 color = Species)) +
+    geom_point(position = position_jitter(0.1))
+```
+
+
+```{r}
+ggplot(iris, aes(x = Petal.Length, 
+                 y = Petal.Width, 
+                 color = Species)) +
+    geom_point(position = "jitter") +
+    scale_x_continuous("Petal Length")
+```
+
+
+```{r}
+ggplot(iris, aes(x = Petal.Length, 
+                 y = Petal.Width, 
+                 color = Species)) +
+    geom_point(position = "jitter") +
+    scale_x_continuous("Petal Length",
+                       limits = c(1,8))
+```
+
+
+```{r}
+ggplot(iris, aes(x = Petal.Length, 
+                 y = Petal.Width, 
+                 color = Species)) +
+    geom_point(position = "jitter") +
+    scale_x_continuous("Petal Length",
+                       limits = c(1,8),
+                       breaks = seq(0, 8, 2))
+```
+
+
+```{r}
+ggplot(iris, aes(x = Petal.Length, 
+                 y = Petal.Width, 
+                 color = Species)) +
+    geom_point(position = "jitter") +
+    scale_x_continuous("Petal Length",
+                       limits = c(1,8),
+                       breaks = seq(0, 8, 2),
+                       expand = c(0, 0))
+```
+
+
+
+```{r}
+ggplot(iris, aes(x = Petal.Length, 
+                 y = Petal.Width, 
+                 color = Species)) +
+    geom_point(position = "jitter") +
+    labs(x = "Petal Length",
+         y = "Petal Width",
+         color = "Species")
+```
+
+
 
 
 
