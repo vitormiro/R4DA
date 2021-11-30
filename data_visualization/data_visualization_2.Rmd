@@ -1,0 +1,78 @@
+---
+title: "Visualização de dados - parte 2"
+output: html_notebook
+---
+
+## Scatter plots
+
+```{r}
+library(ggplot2)
+```
+
+```{r}
+data(iris)
+head(iris)
+```
+
+
+```{r}
+ggplot(iris, aes(x = Sepal.Length, 
+                 y = Sepal.Width, 
+                 color = Species)) +
+    geom_point()
+```
+
+## Bar Graphs
+
+```{r}
+ggplot(data=iris, aes(x=Species, fill = Species)) + 
+    geom_bar() + 
+    xlab("Species") +  
+    ylab("Count") + 
+    ggtitle("Bar plot of Sepal Length")
+```
+
+
+## Histograms
+
+```{r}
+ggplot(data=iris, aes(x=Sepal.Width)) + 
+    geom_histogram(binwidth=0.2, color="black", aes(fill=Species)) + 
+    xlab("Sepal Width") + 
+    ylab("Frequency") + 
+    ggtitle("Histogram of Sepal Width")
+```
+
+
+## Boxplots
+
+```{r}
+ggplot(data=iris, aes(x=Species, y=Sepal.Length)) +
+    geom_boxplot(aes(fill=Species)) + 
+    ylab("Sepal Length") + ggtitle("Iris Boxplot")
+```
+
+
+## Density Plots
+
+```{r}
+ggplot(iris, aes(x=Sepal.Length, colour=Species, fill=Species)) +
+    geom_density(alpha=.3) +
+    xlab("Petal Length (cm)") +  
+    ylab("Density") +
+    ggtitle("Iris Density Plot")
+```
+
+
+## Violin Plot
+
+```{r}
+ggplot(iris, aes(Species, Sepal.Length, fill=Species)) + 
+    geom_violin(aes(color = Species), trim = T)+
+    geom_boxplot(width=0.1) +
+    ggtitle("Iris Violin Plot")
+```
+
+
+
+
