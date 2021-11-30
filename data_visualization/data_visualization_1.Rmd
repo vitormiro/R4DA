@@ -39,8 +39,24 @@ Os três principais componentes a serem observados são:
 
 A primeira etapa na criação de um gráfico com o `ggplot2` é definir um **objeto** no `ggplot`. Fazemos isso com a função `ggplot`, que inicializa o gráfico. Se lermos o arquivo de ajuda para esta função, veremos que o primeiro argumento é usado para especificar quais dados estão associados a este objeto.
 
-No presente exemplo vamos usar a base de dados `iris`
+No presente exemplo vamos usar a base de dados `iris`.
 
+Este *dataset* é talvez o mais conhecido na literatura de reconhecimento de padrões.
+O conjunto de dados `Iris` foi usado no artigo clássico de RA Fisher de 1936, [*The Use of Multiple Measurements in Taxonomic Problems*](https://onlinelibrary.wiley.com/doi/pdf/10.1111/j.1469-1809.1936.tb02137.x), e também pode ser encontrado no [UCI Machine Learning Repository](http://archive.ics.uci.edu/ml/datasets/Iris).
+
+O conjunto de dados inclui 3 espécies de flor íris, com 50 amostras de cada, bem como algumas propriedades sobre cada flor. Uma caracteristica ressaltada é que uma espécie de flor é linearmente separável das outras duas, mas as outras duas não são linearmente separáveis uma da outra.
+Dentre as variáveis do banco de dados estão:
+
+1. comprimento da sépala em cm (*Sepal.Length*)
+2. largura da sépala em cm (*Sepal.Width*)
+3. comprimento da pétala em cm (*Petal.Length*)
+4. largura da pétala em cm (*Petal.Width*)
+5. classes (*Species*):
+  - Iris Setosa
+  - Iris Versicolour
+  - Iris Virginica
+
+Vamos carregar os dados.
 ```{r}
 data(iris)
 head(iris)
@@ -61,17 +77,43 @@ Com o `ggplot2`nós criamos gráficos adicionando camadas. As camadas podem defi
 
 Normalmente, a primeira camada adicionada define a geometria. Se queremos fazer um gráfico de dispersão usamos a função `geom_point`; um gráfico de barras `geom_bar` ou um histograma `geom_histogram`.
 
-Os **mapeamentos estéticos** descrevem como as propriedades dos dados se conectam aos recursos do gráfico, como distância ao longo de um eixo, tamanho ou cor. A função `aes` conecta os dados com o que vemos no gráfico, definindo mapeamentos estéticos e será uma das funções que você usa com mais frequência ao plotar.
+Os **mapeamentos estéticos** descrevem como as propriedades dos dados (variáveis) se conectam aos recursos visuais do gráfico, como distância ao longo de um eixo, tamanho ou cor. Isto é feito a partir da função `aes()` que conecta os dados com o que vemos no gráfico.
+
+Características visuais:
+
+- Posição (*x e y*);
+- Cor (*color*);
+- Tamanho (*size*);
+- Preenchimento (*fill*);
+- Transparência (*alpha*);
+- Texto (*label*).
 
 O resultado da função `aes` é freqüentemente usado como o argumento de uma função geométrica.
 
-Este exemplo produz um gráfico de dispersão (função geométrica `geom_point()`) entre o PIB per capita e a expectativa de vida.
+Os **objetos geométricos** começam com a expressão `geom_` e são seguidos pelo tipo de objeto. Por exemplo, `geom_point()` para pontos (em diagramas de disperção) e `geom_bar()` para barras.
+
+A tabela abaixo apresenta os tipos de objetos geométricos utilizados para criar-se alguns tipos de gráficos populares.
+
+
+Tipo                     | Objeto Geométrico
+-----------------------: | :-----------------:
+Dispersão (scatterplot)  | geom_point()
+Gráfico de bolhas        | geom_point()
+Gráfico de barras	       | geom_col() e geom_bar()
+Histogram                | geom_histogram()
+Boxplot	                 | geom_boxplot()
+Densidade	               | geom_density()
+Gráfico de linhas	       | geom_line()
+
+
+Este exemplo produz um gráfico de dispersão (função geométrica `geom_point()`) entre o comprimento da pétala (*Petal.Length*) e a largura da pétala (*Petal.Width*).
 
 ```{r}
 iris %>% ggplot() + 
   geom_point(aes(x=Petal.Length, y=Petal.Width))
 ```
 
+O `color` como argumento da função `aes()` permite mapear uma variável por cor.
 
 ```{r}
 iris %>% ggplot() + 
@@ -93,19 +135,20 @@ ggplot(iris) +
                    y = Petal.Width, 
                    color = Species))
 ```
-
+O argumento `color` na função `geom_point()` especifica uma cor para o objeto geométrico.
 ```{r}
 ggplot(iris, aes(x = Petal.Length, 
                  y = Petal.Width)) +
     geom_point(color = "red")
 ```
+Argumento `size`.
 
 ```{r}
 ggplot(iris, aes(x = Petal.Length, 
                  y = Petal.Width)) +
     geom_point(size = 5)
 ```
-
+Argumento `position` = `jitter`.
 ```{r}
 ggplot(iris, aes(x = Petal.Length, 
                  y = Petal.Width, 
