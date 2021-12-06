@@ -1,5 +1,6 @@
 ---
 title: "Visualização de dados"
+author: "Vitor Hugo Miro (DEA/UFC)"
 output: html_notebook
 ---
 
@@ -16,35 +17,52 @@ A visualização de dados pode ser usada para:
 - Reforçar um argumento ou opinião
 - Destacar um ponto importante em um conjunto de dados
 
-## `ggplot2`
+## Visualizações com o `ggplot2`
 A produção de gráficos e visualizações a partir de dados é um dos pontos fortes do R.
 R possui vários sistemas para fazer gráficos, mas o pacote `ggplot2` é um dos mais elegantes e versáteis.
 
-O `ggplot2` é um pacote de visualização de dados criado por Hadley Wickham em 2005, baseado no livro 'Grammar of Graphics', de Leland Wilkinson. 
+O `ggplot2` é um pacote de visualização de dados criado por Hadley Wickham em 2005, baseado no livro 'Grammar of Graphics', de Leland Wilkinson.
+Com o `ggplot2` é possível criar gráficos utilizando camadas de atributos, utilizando a chamada gramática de gráficos.
 
-O `ggplot2` é um dos principais membros do *tidyverse*.
+Embora tenha surgido antes, o `ggplot2` é um dos membros centrais do *tidyverse*.
 
 ```{r}
 library(tidyverse)
 ```
 
+### A grámatica dos gráficos
+
+A gramática de gráficos foi um conceito desenvolvido por Leland Wilkinson em 1999 e publicado por ele no livro *The Grammar of Graphics* em 2005. Essa gramática define regras para estruturar elementos matemáticos e estéticos em um gráfico.
+
 O primeiro passo para aprender a usar a gramática de gráficos do `ggplot2` é ser capaz de decompor um gráfico em componentes. Nesse sentido, vamos falar um pouco sobre a terminologia do `ggplot2`.
 
 Os três principais componentes a serem observados são:
 
-- *Dados*
-- *Geometria* : diagrama de dispersão, barras, histogramas, densidades, qqplot e boxplot.
-- *Mapeamento estético* : escalas, cores.
+- *Dados*: variáveis que serão mapeadas e plotadas no gráfico.
+- *Geometria*: formas geométricas (*geoms*) do gráfico; diagrama de dispersão, barras, histogramas, densidades, qqplot e boxplot.
+- *Mapeamento estético* : define quais elementos estéticos (*aesthetics*) do gráfico serão mapeados para as variáveis como escalas, cores, tamanho, forma.
+
+A primeira etapa na criação de um gráfico com o `ggplot2` é definir um **objeto** no `ggplot`. Fazemos isso com a função `ggplot`, que inicializa o gráfico. Se lermos o arquivo de ajuda para esta função, veremos que o primeiro argumento é usado para especificar quais dados estão associados a este objeto. No presente exemplo vamos usar a base de dados `iris`.
+
+Podemos assumir inicialmnete um *template* (baseado no texto de Wickham (2019)) para a contrução de plotagens no `ggplot2` da seguinte forma:
+
+```{r, eval=FALSE}
+ggplot(data = <DATA>) + 
+  <GEOM_FUNCTION>(
+     mapping = aes(<MAPPINGS>),
+     stat = <STAT>, 
+     position = <POSITION>,
+     data = <DATA> # pode receber os dados diretamente
+  )
+```
 
 
-A primeira etapa na criação de um gráfico com o `ggplot2` é definir um **objeto** no `ggplot`. Fazemos isso com a função `ggplot`, que inicializa o gráfico. Se lermos o arquivo de ajuda para esta função, veremos que o primeiro argumento é usado para especificar quais dados estão associados a este objeto.
+## O conjunto de dados Iris
 
-No presente exemplo vamos usar a base de dados `iris`.
-
-Este *dataset* é talvez o mais conhecido na literatura de reconhecimento de padrões.
+O *dataset* `iris`é talvez o mais conhecido na literatura de reconhecimento de padrões.
 O conjunto de dados `Iris` foi usado no artigo clássico de RA Fisher de 1936, [*The Use of Multiple Measurements in Taxonomic Problems*](https://onlinelibrary.wiley.com/doi/pdf/10.1111/j.1469-1809.1936.tb02137.x), e também pode ser encontrado no [UCI Machine Learning Repository](http://archive.ics.uci.edu/ml/datasets/Iris).
 
-O conjunto de dados inclui 3 espécies de flor íris, com 50 amostras de cada, bem como algumas propriedades sobre cada flor. Uma caracteristica ressaltada é que uma espécie de flor é linearmente separável das outras duas, mas as outras duas não são linearmente separáveis uma da outra.
+Este conjunto de dados inclui 3 espécies de flor íris, com 50 amostras de cada, bem como algumas propriedades sobre cada flor. Uma caracteristica ressaltada destes dados é que uma espécie de flor é linearmente separável das outras duas, mas as outras duas não são linearmente separáveis uma da outra.
 Dentre as variáveis do banco de dados estão:
 
 1. comprimento da sépala em cm (*Sepal.Length*)
@@ -62,7 +80,6 @@ data(iris)
 head(iris)
 ```
 
-
 ```{r}
 ggplot(data = iris)
 ```
@@ -72,12 +89,28 @@ iris %>% ggplot
 ```
 Ele renderiza um gráfico, neste caso uma lousa em branco, uma vez que nenhuma geometria foi definida. A única escolha de estilo que vemos é um fundo cinza.
 
+Com o `ggplot2`nós criamos gráficos adicionando camadas. As camadas podem definir **geometrias**, calcular estatísticas de resumo, definir quais escalas usar ou até mesmo alterar estilos. Para adicionar camadas, usamos o símbolo `+`. Normalmente, a primeira camada adicionada define o objeto geométrico ou geometria.
 
-Com o `ggplot2`nós criamos gráficos adicionando camadas. As camadas podem definir **geometrias**, calcular estatísticas de resumo, definir quais escalas usar ou até mesmo alterar estilos. Para adicionar camadas, usamos o símbolo `+`.
+Os **objetos geométricos** começam com a expressão `geom_` e são seguidos pelo tipo de objeto. Por exemplo, `geom_point()` para pontos (em diagramas de disperção) e `geom_bar()` para barras.
 
-Normalmente, a primeira camada adicionada define a geometria. Se queremos fazer um gráfico de dispersão usamos a função `geom_point`; um gráfico de barras `geom_bar` ou um histograma `geom_histogram`.
+A tabela abaixo apresenta os tipos de objetos geométricos utilizados para criar-se alguns tipos de gráficos populares.
 
-Os **mapeamentos estéticos** descrevem como as propriedades dos dados (variáveis) se conectam aos recursos visuais do gráfico, como distância ao longo de um eixo, tamanho ou cor. Isto é feito a partir da função `aes()` que conecta os dados com o que vemos no gráfico.
+Tipo                     | Objeto Geométrico
+-----------------------: | :-----------------:
+Dispersão (scatterplot)  | geom_point()
+Gráfico de bolhas        | geom_point()
+Gráfico de barras	     | geom_col() e geom_bar()
+Histogram                | geom_histogram()
+Boxplot	                 | geom_boxplot()
+Densidade	             | geom_density()
+Gráfico de linhas	     | geom_line()
+
+
+### Mapeamento estéticos
+
+Os **mapeamentos estéticos** ou estética descrevem como as propriedades dos dados (variáveis) se conectam aos recursos visuais do gráfico, como distância ao longo de um eixo, tamanho, forma ou cor. Isto é feito a partir da função `aes()` que conecta os dados com o que vemos no gráfico.
+
+Para mapear uma estética a uma variável, associe o nome da estética ao nome da variável dentro da função `aes()`.
 
 Características visuais:
 
@@ -88,37 +121,18 @@ Características visuais:
 - Transparência (*alpha*);
 - Texto (*label*).
 
+
 O resultado da função `aes` é freqüentemente usado como o argumento de uma função geométrica.
 
-Os **objetos geométricos** começam com a expressão `geom_` e são seguidos pelo tipo de objeto. Por exemplo, `geom_point()` para pontos (em diagramas de disperção) e `geom_bar()` para barras.
 
-A tabela abaixo apresenta os tipos de objetos geométricos utilizados para criar-se alguns tipos de gráficos populares.
-
-
-Tipo                     | Objeto Geométrico
------------------------: | :-----------------:
-Dispersão (scatterplot)  | geom_point()
-Gráfico de bolhas        | geom_point()
-Gráfico de barras	       | geom_col() e geom_bar()
-Histogram                | geom_histogram()
-Boxplot	                 | geom_boxplot()
-Densidade	               | geom_density()
-Gráfico de linhas	       | geom_line()
-
-
-Este exemplo produz um gráfico de dispersão (função geométrica `geom_point()`) entre o comprimento da pétala (*Petal.Length*) e a largura da pétala (*Petal.Width*).
+Este exemplo produz um gráfico de dispersão (função geométrica `geom_point()`) entre o comprimento da pétala (*Petal.Length*) e a largura da pétala (*Petal.Width*). Não foi epecificada nenhuma estética especial.
 
 ```{r}
 iris %>% ggplot() + 
   geom_point(aes(x=Petal.Length, y=Petal.Width))
 ```
-
-O `color` como argumento da função `aes()` permite mapear uma variável por cor.
-
-```{r}
-iris %>% ggplot() + 
-  geom_point(aes(x=Petal.Length, y=Petal.Width, color = Species))
-```
+Podemos transmitir informações dos dados ao mapear a estética do gráfico para as variáveis do conjunto de dados.
+O argumento `color` da função `aes()` permite mapear uma variável por cor. A seguir mapeamos as espécies de iris.
 
 ```{r}
 ggplot(iris, aes(x = Petal.Length, 
@@ -126,6 +140,7 @@ ggplot(iris, aes(x = Petal.Length,
                  color = Species)) +
 geom_point()
 ```
+
 No exemplo a seguir o mapeamento estético ocorre na função de geometria.
 Isso é necessário se todas as camadas não devem herdar a mesma estética ou se estivermos combinando diferentes fontes de dados.
 
@@ -135,20 +150,25 @@ ggplot(iris) +
                    y = Petal.Width, 
                    color = Species))
 ```
+
 O argumento `color` na função `geom_point()` especifica uma cor para o objeto geométrico.
+
 ```{r}
 ggplot(iris, aes(x = Petal.Length, 
                  y = Petal.Width)) +
     geom_point(color = "red")
 ```
-Argumento `size`.
+
+O argumento `size` establece o tamanho do objeto geométrico, no caso de pontos, refere-se ao diâmetro. Nas linhas corresponde à largura.
 
 ```{r}
 ggplot(iris, aes(x = Petal.Length, 
                  y = Petal.Width)) +
     geom_point(size = 5)
 ```
+
 Argumento `position` = `jitter`.
+
 ```{r}
 ggplot(iris, aes(x = Petal.Length, 
                  y = Petal.Width, 
