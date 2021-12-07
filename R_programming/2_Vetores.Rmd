@@ -1,0 +1,158 @@
+---
+title: "Vetores - aula 1"
+author: "Vitor Hugo Miro - (PPGER/UFC)"
+output:
+  html_notebook:
+    toc: yes
+  html_document:
+    toc: yes
+    toc_float: yes
+---
+
+## Criando um vetor
+
+Vetores podem conter dados numéricos, dados de caracteres ou dados lógicos. De forma breve, um vetor é uma ferramenta simples para armazenar dados.
+
+Em R, você cria um vetor com a função de combinação `c( )`. Você coloca os elementos do vetor separados por uma vírgula entre parênteses.
+
+*EXEMPLO* Vetores para salvar a produção mensal de um produto em duas fazendas.
+```{r}
+# Produção de A
+prod_A <- c(20, 19, 18, 20, 18, 19)
+# Produção de B
+prod_B <- c(15, 18, 20, 21, 19, 20)
+```
+
+
+### Nomeando um vetor
+
+No exemplo anterior, criamos um vetor com valores de produção. Cada elemento do vetor se refere a um mês, mas é difícil dizer qual valor pertence a qual mês. Seria bom se você pudesse mostrar isso no próprio vetor.
+
+Podemos atribuir um nome aos elementos de um vetor com a função `names()`.
+Primeiro precisamos criar um vetor com os nomes.
+
+```{r}
+names(prod_A) <- c("jan", "fev", "mar", "abr", "maio", "jun")
+
+prod_A
+```
+
+Uma forma mais eficiente de fazer isso é atribuir um vetor com os meses à uma variável.
+Dessa forma, podemos replicar a atribuição dos meses para elementos de vetores com a mesma estrutura.
+
+```{r}
+# vetor de string para os meses
+meses <- c("jan", "fev", "mar", "abr", "maio", "jun")
+```
+
+Agora vamos fazer a atribuição com a função `names`:
+
+```{r}
+# Atribuir valores dos vetores
+names(prod_A) <- meses
+names(prod_B) <- meses
+
+# Imprimir resultado
+prod_A
+prod_B
+```
+
+
+**Qual a produção total nos meses considerados?**
+Para responder essa questão precisamos realizar operações com os vetores.
+
+A função `sum ()` calcula a soma de todos os elementos de um vetor.
+
+```{r}
+# Somar produto nos seis meses
+total_prod_A <- sum(prod_A)
+total_prod_A
+
+total_prod_B <- sum(prod_B)
+total_prod_B
+```
+
+**E a produção nas duas empresas em conjunto?**
+
+Neste caso, iremos somar os dois vetores. 
+É importante saber que, se somarmos os dois vetores, será feita a soma dos elementos.
+
+```{r}
+# Somar vetores
+prod_total <- prod_A + prod_B
+prod_total
+```
+
+Vamos fazer análises mais específicas.
+Considerando o vetor de produção total `prod_total` vamos verificar a produção no mês de março.
+
+Para selecionar elementos de um vetor (posteriormente em matrizes e dataframes), você pode usar colchetes.
+Entre os colchetes, você indica quais elementos selecionar. 
+
+```{r}
+# Verificar um elemento do vetor - produção em março
+prod_marco <- prod_total[3]
+prod_marco
+```
+
+Para selecionar vários elementos de um vetor, podemos indicar entre colchetes quais elementos devem ser selecionados. Por exemplo: suponha que você deseja selecionar o primeiro e o terceiro elementos, use o vetor `c (1, 3)`.
+
+
+```{r}
+# Selecionar trecho de um vetor: 
+prod_trim1 <- prod_total[c(1, 3)]
+```
+
+Para selecionar vários elementos `c (2, 3, 4)` não é muito conveniente. Uma maneira alternativa de fazer isso, e mais fácil, é abreviar `c (2, 3, 4)` para `2: 4`, o que gera um vetor com todos os números naturais de 2 a 4.
+
+```{r}
+prod_trim <- prod_total[1:3]
+prod_trim1
+
+prod_trim2 <- prod_total[4:6]
+prod_trim2
+```
+
+Podemos calcular valores médios em um vetor com a função `mean`.
+
+```{r}
+### Média (produção dos trimestres)
+mean(prod_trim1)
+mean(prod_trim2)
+
+mean_trim <- c(mean(prod_trim1), mean(prod_trim2))
+mean_trim
+```
+
+
+### Operadores comparação
+
+```{r}
+prod_A > 20
+prod_A < 15
+prod_A >= 20
+prod_A <= 18
+prod_A != 20
+```
+
+
+```{r}
+meanA <- mean(prod_A)
+meanA
+```
+
+
+```{r}
+Acima_mediaA <- (prod_A > mean(prod_A))
+Acima_mediaA
+```
+
+
+
+```{r}
+# Mostra apenas resultados com TRUE
+meses_acima_mediaA <- prod_A[Acima_mediaA]
+meses_acima_mediaA
+```
+
+
