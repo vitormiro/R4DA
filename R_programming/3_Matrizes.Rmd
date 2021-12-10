@@ -1,0 +1,219 @@
+---
+title: "Matrizes - aula 1"
+author: "Vitor Hugo Miro - (PPGER/UFC)"
+output:
+  html_notebook:
+    toc: yes
+  html_document:
+    toc: yes
+    toc_float: yes
+---
+
+## Matrizes
+Matrizes são tabelas retangulares de números, expressões matemáticas ou símbolos, cujo elementos são arranjados em $n$ linhas e $p$ colunas. A matrix $M$ abaixo, por exemplo, organiza cada elemento $a_{ij}$ em $n$ linhas e $p$ colunas.
+
+$$ 
+M = \begin{bmatrix}
+            x_{11}       & x_{12} & x_{13} & \dots & x_{1p} \\
+            x_{21}       & x_{22} & x_{23} & \dots & x_{2p} \\
+            \dots \\
+            x_{n1}       & x_{n2} & x_{n3} & \dots & x_{np}
+    \end{bmatrix}
+$$
+Em R, a matriz é uma estrutura de dados homogênea (deve conter mesmo tipo de dados, e.i. numérico, caracteres, lógico) de duas dimensões. Sua sintaxe básica é realizada por meio da função `matrix()`, tendo como argumentos os elementos que compõem a matriz, na forma de um vetor, e o número de linhas e colunas.
+
+
+```{r}
+matrix1 <- matrix(1:9, byrow = TRUE, nrow = 3)
+matrix1
+```
+
+Vejamos mais alguns exemplos sobre a formatação de matrizes em R.
+
+```{r}
+prod1 <- c(10, 5, 20)
+prod2 <- c(15, 8, 25)
+prod3 <- c(10, 8, 24)
+```
+
+
+```{r}
+vector_prod <- c(prod1, prod2, prod3)
+matrix_prod <- matrix(vector_prod, byrow = TRUE, nrow = 3)
+matrix_prod
+```
+
+
+```{r}
+# Nomeando linhas e colunas
+produto <- c("produto 1", "produto 2", "produto 3")
+rownames(matrix_prod) <- produto
+```
+
+
+```{r}
+insumos <- c("insumo 1", "insumo 2", "insumo 3")
+colnames(matrix_prod) <- insumos
+
+matrix_prod
+```
+
+
+```{r}
+# Gerando uma nova matriz
+vsales <- c(100, 120, 150, 120, 110, 140)
+msales <- matrix(vsales, nrow = 3, byrow = TRUE,
+                           dimnames = list(c("produto 1", "produto 2", "produto 3"), 
+                                           c("regiao A", "regiao B")))
+msales
+```
+
+```{r}
+# Somatório nas linhas
+total_sales <- rowSums(msales)
+total_sales
+```
+
+```{r}
+
+# cbind. A função Cbind() 'column bind' permite "colar" matrizes e vetores
+m2sales <- cbind(msales, total_sales)
+m2sales
+
+# rbind
+produto_4 <- c(130, 120, 250)
+m2sales <- rbind(m2sales, produto_4)
+m2sales
+
+# Somatário nas colunas
+sales_reg <- colSums(m2sales)
+sales_reg
+
+```
+
+## Operações com matrizes
+
+### Soma
+$$
+\begin{bmatrix}
+a & b \\
+c & d \\
+\end{bmatrix}
++
+\begin{bmatrix}
+e & f \\
+g & h \\
+\end{bmatrix}
+=
+\begin{bmatrix}
+a+e & b+f \\
+c+g & d+h\\
+\end{bmatrix}
+$$
+
+### Multiplicação por um escalar
+
+$$
+k\cdot \begin{pmatrix} 
+                      a & b\\
+                      c & d 
+       \end{pmatrix} = 
+       \begin{pmatrix} 
+                     k\cdot a & k\cdot b
+                     \\ k\cdot c & k\cdot d 
+       \end{pmatrix}
+$$
+
+
+### Multiplicação elemento por elemento
+
+$$
+\begin{bmatrix}
+a & b \\
+c & d \\
+\end{bmatrix}
+*
+\begin{bmatrix}
+e & f \\
+g & h \\
+\end{bmatrix}
+=
+\begin{bmatrix}
+a*e & b*f \\
+c*g & d*h\\
+\end{bmatrix}
+$$
+
+### Multiplicação matricial
+
+$$
+\begin{bmatrix}
+a & b \\
+c & d \\
+\end{bmatrix}
+*
+\begin{bmatrix}
+e & f \\
+g & h \\
+\end{bmatrix}
+=
+\begin{bmatrix}
+a*e + b*g& a*f+b*h \\
+c*e+d*g & c*f+d*h\\
+\end{bmatrix}
+$$
+
+### Transposta de uma matriz
+
+$$
+\begin{bmatrix}
+a & b \\
+c & d \\
+\end{bmatrix}^t
+=
+\begin{bmatrix}
+a & c \\
+b & d \\
+\end{bmatrix}
+$$
+
+### Determinante de uma matriz
+
+$$
+det\begin{pmatrix}
+a & b\\ 
+c & d
+\end{pmatrix} = a\cdot d - c\cdot b
+$$
+
+$$
+det(A) = \sum^n_{j = 1} (-1)^{i+j} . a_{i j} . det(A_{-i -j})
+$$
+
+
+### Inversa de uma matriz
+
+$$
+A^{-1} \cdot A = I
+$$
+
+### Traço
+
+$$
+tr\begin{bmatrix}
+a & c\\ 
+b & d 
+\end{bmatrix}=a+d
+$$
+
+### Produto cruzado
+
+$$
+X^tX
+$$
+
+### Produto de Kronecker
+
+
+
+
