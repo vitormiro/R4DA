@@ -78,7 +78,7 @@ msales <- matrix(vsales, nrow = 3, byrow = TRUE,
 msales
 ```
 
-A seguir um exemplo simples de soma das linhas da matriz:
+A seguir um exemplo simples de soma das linhas da matriz com a função `rowSums`:
 ```{r}
 # Somatório nas linhas
 total_sales <- rowSums(msales)
@@ -101,7 +101,7 @@ m2sales <- rbind(m2sales, produto_4)
 m2sales
 ```
 
-E agora podemos ver uma soma nas colunas:
+E agora podemos realizar uma soma nas colunas com a função `colSums`:
 ```{r}
 # Somatário nas colunas
 sales_reg <- colSums(m2sales)
@@ -111,7 +111,23 @@ sales_reg
 
 ## Operações com matrizes
 
+Considerando nosso estudo sobre matrizes. Vamos revisar algumas operações com matrizes e ver como podemos realizar estas operações no R.
+
+
+Vamos definir duas matrizes $A$ e $B$:
+```{r}
+A =  matrix(c(2, 2, 3, 4, 5, 6, 7, 8, 9), nrow = 3)
+print(A)
+```
+```{r}
+B =  matrix(c(1:9), nrow = 3, byrow = TRUE)
+print(B)
+```
+
+
 ### Soma
+Dada duas matrizes de mesma dimensionalidade, a matriz resultante da soma / substração destas matrizes corresponde à matriz cujos elementos são a soma / subtração dos elementos das matrizes originais.
+
 $$
 \begin{bmatrix}
 a & b \\
@@ -129,7 +145,14 @@ c+g & d+h\\
 \end{bmatrix}
 $$
 
+```{r}
+A+B
+```
+
+
 ### Multiplicação por um escalar
+
+Toda matriz, independente de sua dimensão (ordem), pode ser multiplicada por um escalar $k$, de forma que $k ∈ ℝ$. O escalar é multiplicado por cada elemento da matriz.
 
 $$
 k\cdot \begin{pmatrix} 
@@ -141,6 +164,9 @@ k\cdot \begin{pmatrix}
                      \\ k\cdot c & k\cdot d 
        \end{pmatrix}
 $$
+```{r}
+2*A
+```
 
 
 ### Multiplicação elemento por elemento
@@ -162,7 +188,16 @@ c*g & d*h\\
 \end{bmatrix}
 $$
 
+No R, a multiplicação elemento a elemento é realizada por meio do operador * desde que as matrizes tenham as mesmas dimensões.
+
+```{r}
+A*B
+```
+
+
 ### Multiplicação matricial
+
+A multiplicação entre uma matriz $(n x m)$ por uma matriz $(m x p)$ resulta em uma matriz de dimensões $(n x p)$, cujos elementos são a somatória do produto entre os elementos em linha da matriz que pré-multiplica pelos elementos em coluna da matriz que pós-multiplica.
 
 $$
 \begin{bmatrix}
@@ -181,6 +216,12 @@ c*e+d*g & c*f+d*h\\
 \end{bmatrix}
 $$
 
+No R, a multiplicação matricial clássica é desenvolvida pelo uso do operador %*%.
+
+```{r}
+A %*% B
+```
+
 ### Transposta de uma matriz
 
 $$
@@ -195,6 +236,13 @@ b & d \\
 \end{bmatrix}
 $$
 
+Em R, a transposta de uma matriz é determinada pela pela função `t()`.
+
+```{r}
+t(A)
+```
+
+
 ### Determinante de uma matriz
 
 $$
@@ -207,6 +255,10 @@ $$
 $$
 det(A) = \sum^n_{j = 1} (-1)^{i+j} . a_{i j} . det(A_{-i -j})
 $$
+No R, o determinante de uma matriz é calculado pela função `det()`:
+```{r}
+det(A)
+```
 
 
 ### Inversa de uma matriz
@@ -215,7 +267,19 @@ $$
 A^{-1} \cdot A = I
 $$
 
+No R a inversa de uma matriz é estimada pela função `solve()`, mesma função utilizada para resolução de sistemas de equações em R.
+```{r}
+inv_A = solve(A)
+inv_A
+```
+Conferindo:
+```{r}
+inv_A %*%A
+```
+
 ### Traço
+
+O traço de uma matriz é determinado pela soma dos elementos da diagonal da matriz quadrada.
 
 $$
 tr\begin{bmatrix}
@@ -223,6 +287,29 @@ a & c\\
 b & d 
 \end{bmatrix}=a+d
 $$
+No R, a obtenção do traço passa pela extração dos elementos da diagonal da matrix, por meio da função `diag()`, e a soma destes elementos pela função `sum()`.
+
+```{r}
+sum(diag(A))
+```
+
+### Decomposição de uma matriz
+
+A decomposição própria (decomposição espectral) consiste em escrever uma matriz $A$ diagonalizável qualquer em termos de seus auto-vetores ($v$) e auto-valores ($\lambda$). Na estatística, tal decomposição é base da técnica de componentes principais e análise fatorial. Desta forma, chega-se a seguinte expressão:
+
+$$ A=v^{−1} \lambda v$$
+No R, a obtenção da matriz de auto-valores e auto-vetores é realizada por meio da função `eigen()`.
+
+```{r}
+eigen(A)
+```
+
+```{r}
+ev = eigen(A)
+
+solve(ev$vectors) %*% ev$values %*% ev$vectors #corrigir
+```
+
 
 ### Produto cruzado
 
