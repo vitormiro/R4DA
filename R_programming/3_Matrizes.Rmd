@@ -20,8 +20,9 @@ M = \begin{bmatrix}
             x_{n1}       & x_{n2} & x_{n3} & \dots & x_{np}
     \end{bmatrix}
 $$
-Em R, a matriz é uma estrutura de dados homogênea (deve conter mesmo tipo de dados, e.i. numérico, caracteres, lógico) de duas dimensões. Sua sintaxe básica é realizada por meio da função `matrix()`, tendo como argumentos os elementos que compõem a matriz, na forma de um vetor, e o número de linhas e colunas.
+No R, uma matriz é uma estrutura de dados homogênea (deve conter mesmo tipo de dados, e.i. numérico, caracteres, lógico) de duas dimensões.
 
+Sua sintaxe básica é realizada por meio da função `matrix()`, tendo como argumentos os elementos que compõem a matriz. O argumento `byrow` recebe um valor lógico, sendo FALSE (o padrão), a matriz é preenchida por colunas, caso contrário, a matriz é preenchida por linhas. Os argumentos `nrow`e `ncol` referem-se ao número de linhas e colunas, respectivamente.
 
 ```{r}
 matrix1 <- matrix(1:9, byrow = TRUE, nrow = 3)
@@ -29,67 +30,84 @@ matrix1
 ```
 
 Vejamos mais alguns exemplos sobre a formatação de matrizes em R.
+No próximo exemplo vamos definir vetores.
 
 ```{r}
+# Definindo 3 vetores
 prod1 <- c(10, 5, 20)
 prod2 <- c(15, 8, 25)
 prod3 <- c(10, 8, 24)
 ```
 
+Vamos combinar os vetores anteriores
 
 ```{r}
 vector_prod <- c(prod1, prod2, prod3)
+vector_prod
+```
+Vamos formar uma matriz com essa combinação.
+```{r}
 matrix_prod <- matrix(vector_prod, byrow = TRUE, nrow = 3)
 matrix_prod
 ```
-
-
+Podemos atribuir nomes para as linhas com a função `rownames`:
 ```{r}
 # Nomeando linhas e colunas
 produto <- c("produto 1", "produto 2", "produto 3")
 rownames(matrix_prod) <- produto
+
+matrix_prod
 ```
 
-
+Atribuindo nomes para as colunas com a função `colnames`:
 ```{r}
 insumos <- c("insumo 1", "insumo 2", "insumo 3")
 colnames(matrix_prod) <- insumos
 
 matrix_prod
 ```
-
+A função `dimnames` também permite nomear linhas e colunsa por meio de uma lista de dimensão 2 com nome de linhas (1ª dimensão) e de colunas (2ª dimensão).
 
 ```{r}
 # Gerando uma nova matriz
 vsales <- c(100, 120, 150, 120, 110, 140)
+
 msales <- matrix(vsales, nrow = 3, byrow = TRUE,
                            dimnames = list(c("produto 1", "produto 2", "produto 3"), 
                                            c("regiao A", "regiao B")))
 msales
 ```
 
+A seguir um exemplo simples de soma das linhas da matriz:
 ```{r}
 # Somatório nas linhas
 total_sales <- rowSums(msales)
 total_sales
 ```
 
+A função `cbind` permite concatenar vetores, matrizes e dataframes por colunas.
 ```{r}
 
 # cbind. A função Cbind() 'column bind' permite "colar" matrizes e vetores
 m2sales <- cbind(msales, total_sales)
 m2sales
 
+```
+A função `rbind` permite concatenar vetores, matrizes e dataframes por linhas.
+```{r}
 # rbind
 produto_4 <- c(130, 120, 250)
 m2sales <- rbind(m2sales, produto_4)
 m2sales
+```
 
+E agora podemos ver uma soma nas colunas:
+```{r}
 # Somatário nas colunas
 sales_reg <- colSums(m2sales)
 sales_reg
-
 ```
+
 
 ## Operações com matrizes
 
