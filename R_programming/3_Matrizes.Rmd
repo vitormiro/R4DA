@@ -22,11 +22,29 @@ M = \begin{bmatrix}
 $$
 No R, uma matriz é uma estrutura de dados homogênea (deve conter mesmo tipo de dados, e.i. numérico, caracteres, lógico) de duas dimensões.
 
-Sua sintaxe básica é realizada por meio da função `matrix()`, tendo como argumentos os elementos que compõem a matriz. O argumento `byrow` recebe um valor lógico, sendo FALSE (o padrão), a matriz é preenchida por colunas, caso contrário, a matriz é preenchida por linhas. Os argumentos `nrow`e `ncol` referem-se ao número de linhas e colunas, respectivamente.
+Sua sintaxe básica é realizada por meio da função `matrix()`, tendo como argumentos os elementos que compõem a matriz. 
+
+`matrix(a, nrow = b, ncol = c)` 
+
+`a` representa os dados;
+`b` o número de linhas;
+`c` o número de colunas.
 
 ```{r}
-matrix1 <- matrix(1:9, byrow = TRUE, nrow = 3)
-matrix1
+# Matriz 2x2 de valores 1
+matrix(1, nrow = 2, ncol = 2)
+```
+
+```{r}
+# decarando entradas da matriz
+matrix(c(1, -2, 3, 5), nrow = 2, ncol = 2)
+```
+
+No exemplo a seguir, o argumento `byrow` recebe um valor lógico, sendo FALSE (o padrão), e a matriz é preenchida por colunas. Caso contrário (`byrow = TRUE`), a matriz é preenchida por linhas.
+
+```{r}
+M1 <- matrix(1:9, byrow = TRUE, nrow = 3)
+M1
 ```
 
 Vejamos mais alguns exemplos sobre a formatação de matrizes em R.
@@ -34,37 +52,51 @@ No próximo exemplo vamos definir vetores.
 
 ```{r}
 # Definindo 3 vetores
-prod1 <- c(10, 5, 20)
-prod2 <- c(15, 8, 25)
-prod3 <- c(10, 8, 24)
+v1 <- c(10, 5, 20)
+v2 <- c(15, 8, 25)
+v3 <- c(10, 8, 24)
 ```
 
 Vamos combinar os vetores anteriores
 
 ```{r}
-vector_prod <- c(prod1, prod2, prod3)
-vector_prod
+vector <- c(v1, v2, v3)
+vector
 ```
 Vamos formar uma matriz com essa combinação.
 ```{r}
-matrix_prod <- matrix(vector_prod, byrow = TRUE, nrow = 3)
-matrix_prod
+M <- matrix(vector, byrow = TRUE, nrow = 3)
+M
 ```
+Podemos alterar valores em uma matriz:
+
+```{r}
+M[3,1] <- 12
+M
+```
+
+### Criando uma matriz identidade
+A função `diag()` permite criar uma matriz diagonal. Com apenas um argumento referentes ao número de dimensões, podemos criar uma matriz identidade.
+```{r}
+diag(2)
+```
+
+### Atribuindo nomes para linhas e colunas.
 Podemos atribuir nomes para as linhas com a função `rownames`:
 ```{r}
 # Nomeando linhas e colunas
 produto <- c("produto 1", "produto 2", "produto 3")
-rownames(matrix_prod) <- produto
+rownames(M) <- produto
 
-matrix_prod
+M
 ```
 
 Atribuindo nomes para as colunas com a função `colnames`:
 ```{r}
 insumos <- c("insumo 1", "insumo 2", "insumo 3")
-colnames(matrix_prod) <- insumos
+colnames(M) <- insumos
 
-matrix_prod
+M
 ```
 A função `dimnames` também permite nomear linhas e colunsa por meio de uma lista de dimensão 2 com nome de linhas (1ª dimensão) e de colunas (2ª dimensão).
 
@@ -108,19 +140,18 @@ sales_reg <- colSums(m2sales)
 sales_reg
 ```
 
-
-## Operações com matrizes
+################################################################################
+# Operações com matrizes
 
 Considerando nosso estudo sobre matrizes. Vamos revisar algumas operações com matrizes e ver como podemos realizar estas operações no R.
 
-
 Vamos definir duas matrizes $A$ e $B$:
 ```{r}
-A =  matrix(c(2, 2, 3, 4, 5, 6, 7, 8, 9), nrow = 3)
+A =  matrix(c(2, 0, 0, 1), nrow = 2)
 print(A)
 ```
 ```{r}
-B =  matrix(c(1:9), nrow = 3, byrow = TRUE)
+B =  matrix(c(1:4), nrow = 2, byrow = TRUE)
 print(B)
 ```
 
@@ -305,9 +336,10 @@ eigen(A)
 ```
 
 ```{r}
-ev = eigen(A)
-
-solve(ev$vectors) %*% ev$values %*% ev$vectors #corrigir
+eigenA = eigen(A)
+evec = eigenA$vectors
+eval = eigenA$values
+solve(evec) %*% eval %*% evec #corrigir
 ```
 
 

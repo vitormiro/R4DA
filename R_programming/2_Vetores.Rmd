@@ -155,4 +155,33 @@ meses_acima_mediaA <- prod_A[Acima_mediaA]
 meses_acima_mediaA
 ```
 
+## Algumas funções para criar vetores simples
+
+Concatenando valores.
+```{r}
+x <- c(1, 5, -2, 3)
+print(x)
+```
+
+Repetindo um valor.
+```{r}
+y <- rep(1, 4)
+print(y)
+```
+
+Estabelecendo uma sequência.
+```{r}
+z <- seq(2, 8, by=2)
+print(z)
+```
+
+Podemos alterar itens de um vetor.
+```{r}
+y[4] <- 2
+print(y)
+```
+
+
+
+
 
