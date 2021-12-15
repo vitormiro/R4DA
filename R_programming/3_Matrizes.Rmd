@@ -98,7 +98,7 @@ colnames(M) <- insumos
 
 M
 ```
-A função `dimnames` também permite nomear linhas e colunsa por meio de uma lista de dimensão 2 com nome de linhas (1ª dimensão) e de colunas (2ª dimensão).
+A função `dimnames` também permite nomear linhas e colunas por meio de uma lista de dimensão 2 com nome de linhas (1ª dimensão) e de colunas (2ª dimensão).
 
 ```{r}
 # Gerando uma nova matriz
@@ -116,7 +116,7 @@ A seguir um exemplo simples de soma das linhas da matriz com a função `rowSums
 total_sales <- rowSums(msales)
 total_sales
 ```
-
+**A função `cbind`**
 A função `cbind` permite concatenar vetores, matrizes e dataframes por colunas.
 ```{r}
 
@@ -125,6 +125,8 @@ m2sales <- cbind(msales, total_sales)
 m2sales
 
 ```
+
+**A função `rbind`**
 A função `rbind` permite concatenar vetores, matrizes e dataframes por linhas.
 ```{r}
 # rbind
