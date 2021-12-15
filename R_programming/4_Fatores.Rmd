@@ -1,0 +1,115 @@
+---
+title: "Fatores - aula 1"
+author: "Vitor Hugo Miro - (PPGER/UFC)"
+output:
+  html_notebook:
+    toc: yes
+  html_document:
+    toc: yes
+    toc_float: yes
+---
+
+## Fatores
+
+Em R, o termo fator se refere a uma classe de objeto que armazenar variáveis categóricas.
+
+Diferenciar o tipo de variável em um script do R é importante para diversas análises estatísticas. Diferentes modelos estatísticos no R possuem formas diferenciadas para lidar com variáveis categóricas ou variaveis contínuas.
+
+Um bom exemplo de variável categórica é o sexo. Em muitas circunstâncias, podemos definir as categorias de sexo como "Masculino" ou "Feminino". Outra tipo de variável refere-se ao estado ocupacional de um indivíduo no mercado de trabalho entre "ocupado" e "desocupado".
+
+Vamos inicialmente definir um vetor
+```{r}
+# Vetor com status de ocupação de 5 pessoas
+ocup_vec <- c("Ocupado", "Desocupado", "Ocupado", "Desocupado", "Ocupado")
+```
+
+Note que temos um vetor de variáveis de texto.
+```{r}
+class(ocup_vec)
+```
+Vamos agora usar a função `factor()` para converter esse vetor de caracteres para um fator.
+
+```{r}
+# Converter o vetor em fator
+factor_ocup_vec <- factor(ocup_vec)
+```
+
+Verificando:
+```{r}
+class(factor_ocup_vec)
+```
+
+```{r}
+# Imprimir factor_ocup_vec
+factor_ocup_vec
+```
+
+**Variáveis categóricas nominais e ordinais**
+
+Existem dois tipos de variáveis categóricas: variáveis categóricas nominais e ordinais.
+
+Em uma variável categórica nominal não temos um ordenamento implícito; como é o caso de "homens" e "mulheres".
+Em contraste, as variáveis categóricas ordinais possuem uma ordem natural, como "baixo", "médio" e "alto".
+
+Quando estamos lidando com um variável categórica ordinal, o R permite que sejam declarados os "níveis" desta variável. Isso é realizado com a função `levels()`.
+
+
+```{r}
+# Definir um vetor com variável categórica ordinal
+categ <- c("alto", "baixo", "alto", "baixo", "medio", "medio", "baixo")
+
+# Converter o vetor para um fator
+factor_categ <- factor(categ)
+
+factor_categ
+```
+Note que sem especificar o níveis, eles são listados em ordem alfabética.
+
+Agora vamos especificar níveis para o fator.
+```{r}
+# Especificar os níveis do fator
+levels(factor_categ) <- c("baixo", "medio", "alto")
+
+# Verificando informações do fator
+factor_categ
+```
+
+Podemos ter um sumário de informações do fator com a função `summary()`.
+
+```{r}
+# Gerar um sumário para factor_categ
+summary(factor_categ)
+```
+
+
+
+**Fatores ordenados**
+
+Para declarar ao R que uma variável possui um ordenamento natural podemos usar dois argumentos adicionais na função `factor()`: `order` e `levels`.
+
+O argumento `order` é um valor lógico, e sendo TRUE estamos indicando que o fator é ordenado. No argumento `levels` fornecemos os valores do fator na ordem correta.
+
+```{r}
+# Definir um vetor com variável categórica ordinal
+conceito <- c("A", "B", "A", "C", "B", "B", "C")
+
+# Converter o vetor para um fator e definir níveis e ordenamento
+factor_conceito <- factor(conceito, 
+                          order = TRUE, 
+                          levels = c("C", "B", "A"))
+factor_conceito
+```
+Podemos verificar um sumário:
+```{r}
+# Gerar um sumário para factor_conceito
+summary(factor_conceito)
+```
+E podemos comparar diferentes elementos do fator.
+```{r}
+factor_conceito[1] > factor_conceito[2]
+```
+
+```{r}
+factor_conceito[2] < factor_conceito[4]
+```
+
