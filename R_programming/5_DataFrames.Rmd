@@ -1,0 +1,43 @@
+---
+title: "Data Frames- aula 1"
+author: "Vitor Hugo Miro - (PPGER/UFC)"
+output:
+  html_notebook:
+    toc: yes
+  html_document:
+    toc: yes
+    toc_float: yes
+---
+
+## O que é um Data Frame?
+
+Anteriormente vimos que, no R, as **matrizes** são objetos bidimensionais constituídos por linhas e colunas. Seus elementos assim como os vetores podem ser de apenas de um tipo, ou seja, matrizes no R podem ser constituídas unicamente por caracteres, números ou valores lógicos.
+
+Um **Data Frame** é uma estrutura de dados em que cada coluna representa uma variável e cada linha uma observação. Podemos pensar no Data Frame como uma tabela de dados.
+
+## Criando um Data Frame
+Vamos iniciar criando vetores para armazenar informações de um conjunto de pessoas.
+
+```{r}
+# Criar vetores com caracteristicas de pessoas
+nome = c("Pedro", "João", "Camila", "Lucas", "Juliana", "Marcos")
+sexo = c("masculino", "masculino", "feminino", "masculino", "feminino", "masculino")
+idade = c(22, 21, 18, 20, 23, 19)
+altura = c(1.82, 1.78, 1.69, 1.70, 1.65, 1.68)
+peso = c(79.7, 80.1, 66.5, 75.4, 58, 84.2)
+renda = c(2.0, 3.0, NA, 2.2, 2.5, 3.5)
+```
+
+A partir da informação armazenada nestes vetores, podemos aplicar a função `data.frame` para criar o Data Frame, nomeado como *df*.
+```{r}
+# Criar um data frame a partir dos vetores
+df <- data.frame(nome, sexo, idade, altura, peso, renda)
+# A função head() exibe as 6 primeiras linhas do Data Frame
+head(df)
+```
+A função `str()` exibe informações sobre a estrutura do Data Frame.
+
+```{r}
+str(df)
+```
+
