@@ -15,7 +15,7 @@ Anteriormente vimos que, no R, as **matrizes** são objetos bidimensionais const
 
 Um **Data Frame** é uma estrutura de dados em que cada coluna representa uma variável e cada linha uma observação. Podemos pensar no Data Frame como uma tabela de dados.
 
-## Criando um Data Frame
+## Criando um Data Frame a partir de vetores
 Vamos iniciar criando vetores para armazenar informações de um conjunto de pessoas.
 
 ```{r}
@@ -41,3 +41,64 @@ A função `str()` exibe informações sobre a estrutura do Data Frame.
 str(df)
 ```
 
+Algumas outras funções fornecem informações pontuais sobre o Data Frame como as funções `ncol()`, `nrow()`, `dim()` e `colnames()`.
+
+```{r}
+# Número de colunas/ variáveis
+ncol(df)
+```
+
+```{r}
+# Número de linhas/ observações
+nrow(df)
+```
+
+```{r}
+# Dimensão do Data Frame (n. de linhas x n. de colunas)
+dim(df)
+```
+
+```{r}
+# Nome das colunas / variáveis
+colnames(df)
+```
+
+
+## Visualizando dados do Data Frame
+
+A manipulação de data frames é similar à manipulação de matrizes. A seleção de elementos segue a mesma lógica. Vamos selecionar a terceira linha da segunda coluna do nosso objeto df1.
+
+```{r}
+# Consultar informação da 3ª linha e 1º coluna
+df[3, 1]
+```
+Selecionar variáveis em um data frame é bastante simples usando a sintaxe: df$x. Onde df é o data frame e x a variável que desejamos selecionar.
+
+```{r}
+# Ver informações da variável sexo
+df$sexo
+```
+Visualizar o valor de uma linha específica para uma variável selecionada.
+```{r}
+# Ver altura na 3ª linha
+df$altura[3]
+```
+
+Podemos verificar apenas um subconjunto de variáveis (colunas) no Data Frame.
+```{r}
+# Vizualizar variáveis selecionadas
+df[ ,c("nome", "sexo", "renda")]
+```
+
+Também é possível fazer a seleção de informações conforme critérios usando a função `subset()`.
+```{r}
+subset(df, idade > 21)
+```
+
+## Sumário estatístico
+A função `summary` também se aplica para um sumário estatístico das colunas de um Data Frames.
+```{r}
+summary(df)
+```
+
+ 
