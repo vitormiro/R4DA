@@ -148,6 +148,47 @@ A regra geral desta função é: `subset(dados,condição)`.
 subset(df, idade > 21)
 ```
 
+## Alterarando valores
+
+
+## Adicionando ou excluindo colunas
+Para adicionar uma coluna é utilizar a regra: `objeto$nova_coluna <- vetor`.
+
+```{r}
+# Adicionar ao df um vetor com cidades
+df$cidades <- c("São Paulo", "Brasília", "Belo Horizonte", "Recife", "Curitiba", "São Paulo")
+head(df)
+```
+Se criarmos uma coluna nova a partir de um valor, o R irá repetir esse valor para toda a coluna.
+
+```{r}
+# Adicionar ao df uma coluna com o "pais = Brasil"
+df$pais <- "Brasil"
+head(df)
+```
+
+Para remover uma coluna do data frame podemos usar a regra: `objeto$coluna <- NULL`:
+```{r}
+# Remover coluna "pais"
+df$pais <- NULL
+head(df)
+```
+
+Podemos substituir valores de uma data frame com a seguinte regra básica `objeto[linha,coluna] <- valor`.
+```{r}
+# Remover coluna "pais"
+df[3, 6] <- 2.0
+head(df)
+```
+
+## Transformar uma variável categórica em fator
+
+```{r}
+df$sexo <- as.factor(df$sexo)
+str(df)
+```
+cidades também pode ser convertido.
+
 ## Sumário estatístico
 A função `summary` também se aplica para um sumário estatístico das colunas de um Data Frames.
 ```{r}
