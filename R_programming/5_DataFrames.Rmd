@@ -32,6 +32,7 @@ A partir da informação armazenada nestes vetores, podemos aplicar a função `
 ```{r}
 # Criar um data frame a partir dos vetores
 df <- data.frame(nome, sexo, idade, altura, peso, renda)
+
 # A função head() exibe as 6 primeiras linhas do Data Frame
 head(df)
 ```
@@ -62,23 +63,62 @@ dim(df)
 # Nome das colunas / variáveis
 colnames(df)
 ```
+O tipo de cada coluna individualmente pode ser verificado com a função `class`
+```{r}
+class(nome)
+class(idade)
+```
 
+## Consultando dados no Data Frame
 
-## Visualizando dados do Data Frame
-
-A manipulação de data frames é similar à manipulação de matrizes. A seleção de elementos segue a mesma lógica. Vamos selecionar a terceira linha da segunda coluna do nosso objeto df1.
+A manipulação de data frames é similar à manipulação de matrizes. A seleção de elementos segue a mesma lógica. Vamos selecionar a terceira linha da segunda coluna do nosso data frame `df`.
 
 ```{r}
 # Consultar informação da 3ª linha e 1º coluna
 df[3, 1]
 ```
-Selecionar variáveis em um data frame é bastante simples usando a sintaxe: df$x. Onde df é o data frame e x a variável que desejamos selecionar.
+Selecionar variáveis em um data frame, e no presente caso imprimir as informações, é bastante simples usando a sintaxe: `df$x`. Veja que usamos o cifrão *$* entre o data frame *df* e a variável que desejamos selecionar *x*. 
 
 ```{r}
 # Ver informações da variável sexo
 df$sexo
 ```
-Visualizar o valor de uma linha específica para uma variável selecionada.
+Vimos anteriormente a função `head()` que exibe as seis primeiras linhas do data frame.
+De forma similar, a função `tail()` permite visualizar as seis últimas linhas.
+
+```{r}
+tail(df)
+```
+Quando queremos selecionar linhas e colunas específicas, o método de indexação é o seguinte: `objeto[linhas,colunas]`. Este método de indexação permite total flexibilidade e controle.
+
+```{r}
+# Seleciona apenas primeira linha 
+df[1, ]        
+```
+
+Observação: espaço vazio dentro do colchetes diz para o R selecionar todas as colunas. O mesmo se aplica se o espaço das linhas for deixado em branco `dados[ ,colunas]`.
+
+```{r}
+# Seleciona as 3 primeiras linhas
+df[1:3, ]        
+```
+
+```{r}
+# Seleciona a primeira, a segunda e quinta linhas
+df[c(1,2,5), ]
+```
+
+```{r}
+# Seleciona a sexta coluna (todas as linhas)
+df[, 6]
+
+```
+Agora vamos visualizar o valor de uma linha específica para uma variável selecionada.
+```{r}
+# Ver altura na 3ª linha
+df[3, 4]
+```
+Essa informação também poderia ser consultada ao especificar a coluna, assim:
 ```{r}
 # Ver altura na 3ª linha
 df$altura[3]
@@ -89,8 +129,21 @@ Podemos verificar apenas um subconjunto de variáveis (colunas) no Data Frame.
 # Vizualizar variáveis selecionadas
 df[ ,c("nome", "sexo", "renda")]
 ```
+Podemos selecionar dados usando condições lógicas.
 
+```{r}
+df$altura > 1.70
+```
+Mostrando todas as colunas para observações que atendem uma condição.
+```{r}
+df[df$altura > 1.70 , ]
+```
+Podemos combinar condições.
+```{r}
+df[df$altura <= 1.70 & df$sex == "masculino"  ,  ]
+```
 Também é possível fazer a seleção de informações conforme critérios usando a função `subset()`.
+A regra geral desta função é: `subset(dados,condição)`.
 ```{r}
 subset(df, idade > 21)
 ```
