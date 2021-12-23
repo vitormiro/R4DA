@@ -1,0 +1,38 @@
+---
+title: "Listas"
+author: "Vitor Hugo Miro - (PPGER/UFC)"
+output:
+  html_notebook:
+    toc: yes
+  html_document:
+    toc: yes
+    toc_float: yes
+---
+
+## Listas
+
+No R, uma lista é um vetor genérico contendo outros objetos: texto, números, vetores, matrizes, data frames, ou mesmo outras listas.
+A lista é uma estrutura de dados versátil podendo conter elementos de diferentes tipos e de tamanhos diferentes. A principal função para as listas é servir como um **container** para armazenar qualquer número de itens de qualquer tipo.
+
+
+## Criando listas
+Listas podem ser criadas com a função `list()` e a especificação do seu conteúdo é feita com a função `c()` que vismos desde a criação de vetores.
+
+```{r}
+vec <- c(1,2,3)
+vec_char <- c("Estatística", "Matemática", "Economia", "Programação")
+vec_logic <- c(TRUE, FALSE, TRUE, FALSE)
+lista1 <- list(vec, vec_char, vec_logic)
+lista1
+```
+
+Note o resultado acima. Os índices em colchetes duplos `[[]]` identificam o elemento ou a componente da lista. Os índices em colchete simples `[]` indicam qual sub-elemento da lista está sendo mostrado. 
+A estrutura de uma lista pode se tornar complicada com o aumento do grau de sub-elementos. Mas essa flexibilidade, faz das listas uma ferramenta de armazenamento de dados para diversos propósitos.
+
+Podemos visualizar a estrutura de uma lista com a função `str()`.
+```{r}
+str(lista1)
+```
+
+## Indexação
+
