@@ -34,5 +34,29 @@ Podemos visualizar a estrutura de uma lista com a função `str()`.
 str(lista1)
 ```
 
+### Criando uma lista nomeada
+
+```{r}
+# Vetor
+nomes <- c("Fortaleza", "Recife", "Salvador") 
+
+# Matriz
+distancias <- matrix(c(0, 760, 1180, 760, 0 , 807, 1180, 807, 0), ncol = 3)
+
+# Data Frame
+dados <- data.frame(cidade = c("Fortaleza", "Recife", "Salvador"),
+                    pop = c(2.7, 1.66, 2.9),
+                    idhm = c(0.754, 0.772, 0.759))
+
+# Criar listas com os elementos acima
+lista_cidades <- list(cidades = nomes, dist = distancias, df = dados)
+
+# Imprimir lista
+lista_cidades
+
+```
+
+
+
 ## Indexação
 
