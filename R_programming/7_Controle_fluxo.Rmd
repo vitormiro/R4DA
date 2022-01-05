@@ -1,0 +1,86 @@
+---
+title: "Controle de Fluxo"
+author: "Vitor Hugo Miro - (PPGER/UFC)"
+output:
+  html_notebook:
+    toc: yes
+  html_document:
+    toc: yes
+    toc_float: yes
+---
+
+## Estruturas de controle
+
+As estruturas de controle no R permitem controlar o fluxo de execução de comandos
+em um algoritmo.
+
+Em computação as estruturas de controle básicas são:
+
+- Condicionais: usados para executar uma ou mais instruções se uma condição for atendida.
+
+- Iterações/ Loops: o objetivo é repetir um comando determinado número de vezes ou enquanto uma condição é cumprida.
+
+
+
+## Estruturas Condicionais
+
+### Operadores relacionais
+
+**Operador de igualdade: "=="**
+
+Comparações de igualdade são a forma mais simples.
+```{r}
+TRUE == TRUE
+```
+```{r}
+TRUE == FALSE
+```
+**Operador de diferença: "!="**
+```{r}
+TRUE != FALSE
+```
+**Desigualdades: ">" e "<"**
+
+Comparações numéricas:
+```{r}
+3 > 5
+```
+```{r}
+3 < 5
+```
+Na comparação de strings, o R determina a relação com base na ordem alfabética.
+```{r}
+"Cães" > "Gatos"
+```
+No caso de valores booleanos `TRUE` é tratado como "1" para aritmética e `FALSE` é tratado como "0". Portanto:
+```{r}
+TRUE > FALSE
+```
+
+```{r}
+TRUE == 1
+```
+
+
+**Comparações com vetores**
+
+Os operadores relacionais também se aplicam a vetores.
+
+```{r}
+v1 <- c(8, 9, 7, 5, 4, 7, 8)
+v2 <- c(9, 8, 9, 10, 8, 6, 7)
+```
+
+```{r}
+v1 > 7
+```
+```{r}
+v2 < 7
+```
+
+```{r}
+v1 > v2
+```
+
+
+
