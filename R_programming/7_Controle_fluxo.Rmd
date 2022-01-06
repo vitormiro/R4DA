@@ -21,8 +21,11 @@ Em computação as estruturas de controle básicas são:
 - Iterações/ Loops: o objetivo é repetir um comando determinado número de vezes ou enquanto uma condição é cumprida.
 
 
-
 ## Estruturas Condicionais
+
+As estruturas condicionais são úteis quando queremos analisar um conjunto de condições e decidir por um conjunto de ações a ser executado de acordo com estas condições.
+
+A aplicação das estruturas condicionais conta com as instruções `if` , `elif` e `else`.
 
 ### Operadores relacionais
 
@@ -67,8 +70,8 @@ TRUE == 1
 Os operadores relacionais também se aplicam a vetores.
 
 ```{r}
-v1 <- c(8, 9, 7, 5, 4, 7, 8)
-v2 <- c(9, 8, 9, 10, 8, 6, 7)
+v1 <- c(8, 9, 7, 5, 4, 7, 8, 6)
+v2 <- c(9, 8, 9, 10, 8, 6, 7, 6)
 ```
 
 ```{r}
@@ -82,5 +85,125 @@ v2 < 7
 v1 > v2
 ```
 
+**Matrizes**
+
+```{r}
+m1 <- matrix(c(v1, v2), nrow = 2, byrow = TRUE)
+m1
+```
+
+```{r}
+m1 <=7
+```
+
+### Operadores lógicos
+
+**E: operador "&"**
+```{r}
+TRUE & TRUE
+
+TRUE & FALSE
+
+FALSE & TRUE
+
+FALSE & FALSE
+```
+
+```{r}
+x <- 12
+x > 5 & x < 15
+```
+
+**OU: operador "|"**
+```{r}
+TRUE | TRUE
+
+TRUE | FALSE
+
+FALSE | TRUE
+
+FALSE | FALSE
+```
+
+```{r}
+y <-4
+y < 5 | y > 10
+```
+
+**NÃO: operator "!"**
+
+```{r}
+!TRUE
+
+!FALSE
+```
+
+```{r}
+is.numeric(5)
+
+!is.numeric(5)
+```
+**Aplicando em vetores**
+```{r}
+c(TRUE, FALSE, TRUE) & c(TRUE, FALSE, FALSE)
+
+c(TRUE, FALSE, TRUE) | c(TRUE, FALSE, FALSE)
+```
+
+```{r}
+c(TRUE, FALSE, TRUE) && c(TRUE, FALSE, FALSE)
+
+c(TRUE, FALSE, TRUE) || c(TRUE, FALSE, FALSE)
+```
+
+### Comandos condicionais
+Um	comando	condicional é aquele que permite decidir se	um determinado bloco de 
+comandos deve ou não ser executado,	a partir do resultado de uma expressão 
+relacional ou lógica.
+
+## 
+
+```{r}
+## IF
+x <- 5
+
+if (x < 0){
+    print("x é um número negativo")
+    }
+```
+
+
+```{r}
+if (x < 0){
+    print("x é um número negativo")
+} else {
+    print("x é nulo ou um número positivo")
+}
+```
+
+```{r}
+if (x < 0){
+    print("x é negativo")
+} else if (x == 0){
+    print("x é nulo")
+} else {
+    print("x é positivo")
+}
+
+```
+
+
+```{r}
+x <- 6
+if (x %% 2 == 0){
+    print("x é divisível por 2")
+} else if (x %% 3 == 0){
+    print("x é divisível por 3")
+} else {
+    print("x não é divisível por 2 ou 3")
+}
+```
+
+## Estruturas de repetição
 
 
