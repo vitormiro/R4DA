@@ -1,0 +1,257 @@
+---
+title: "Programação Básica - 1"
+author: "Vitor Hugo Miro"
+---
+
+## Realizando cálculos básicos
+
+Em sua forma mais básica, `R` pode ser usado como uma calculadora simples. Operações básicas são executadas de forma muito simples e direta.
+
+-   Adição, subtração, multiplicação e divisão.
+
+| Operação   | `R`     | Resultado |
+|------------|---------|-----------|
+| $3 + 2$    | `3 + 2` | `r 3 + 2` |
+| $3 - 2$    | `3 - 2` | `r 3 - 2` |
+| $3 \cdot2$ | `3 * 2` | `r 3 * 2` |
+| $3 / 2$    | `3 / 2` | `r 3 / 2` |
+
+-   Potenciação
+
+| Operação     | `R`             | Resultado         |
+|--------------|-----------------|-------------------|
+| $3^2$        | `3 ^ 2`         | `r 3 ^ 2`         |
+| $2^{(-3)}$   | `2 ^ (-3)`      | `r 2 ^ (-3)`      |
+| $100^{1/2}$  | `100 ^ (1 / 2)` | `r 100 ^ (1 / 2)` |
+| $\sqrt{100}$ | `sqrt(100)`     | `r sqrt(100)`     |
+
+-   Logaritmos
+
+| Operação          | `R`                 | Resultado             |
+|-------------------|---------------------|-----------------------|
+| $\log(e)$         | `log(exp(1))`       | `r log(exp(1))`       |
+| $\log_{10}(1000)$ | `log10(1000)`       | `r log10(1000)`       |
+| $\log_{2}(8)$     | `log2(8)`           | `r log2(8)`           |
+| $\log_{4}(16)$    | `log(16, base = 4)` | `r log(16, base = 4)` |
+
+Usamos $\ln$ e $\log$ de forma intercambiável para representar o logaritmo natural. No `R` não há `ln()`, em vez disso, ele usa `log()` para o logaritmo natural.
+
+-   Algumas constantes importantes
+
+| Operação | `R`      | Resultado  |
+|----------|----------|------------|
+| $\pi$    | `pi`     | `r pi`     |
+| $e$      | `exp(1)` | `r exp(1)` |
+
+-   Trigonometria
+
+Para aplicar funções trigonométricas no `R` precisamos converter graus para radianos.
+
+
+| Operação        | `R`           | Resultado       |
+|-----------------|---------------|-----------------|
+| $\sin(\pi / 2)$ | `sin(pi / 2)` | `r sin(pi / 2)` |
+| $\cos(0)$       | `cos(0)`      | `r cos(0)`      |
+| $\tan(\pi / 4)$ | `tan(pi / 4)` | `r tan(pi / 4)` |
+
+Note que o `R`possui várias funções nativas como `sqrt()`, `exp()`, `log()` and `sin()`. Para consultar a documentação sobre uma função no `R`, basta colocar um ponto de interrogação (?) seguido pelo nome da função e o RStudio exibirá a documentação. Por exemplo:
+
+```{r, eval = FALSE}
+?sqrt
+```
+
+## Atribuição de variáveis
+Um conceito básico em programação é chamado de variável. Um conceito um pouco diferente da forma como lidamos em matemática e estatística.
+
+Na programação, uma variável nos fornece um "espaço" de armazenamento nomeado.
+
+Ou seja, uma variável nos permite armazenar informações ou dados (um valor ou um objeto), e acessar o conteúdo ao invocar o nome dado a variável.
+
+Vejamos um exemplo.
+
+```{r}
+# Atribuir o valor 25 para x
+x <- 25
+
+# Imprimir o valor da variável x
+print(x)
+```
+Podemos realizar operações com as variáveis.
+```{r}
+# Atribuir valor para y
+y <- 5
+
+# Imprimir o valor da soma x + y
+x + y
+```
+A função `cat()` combina vários itens em uma saída de impressão contínua.
+```{r}
+cat("x + y é igual a ", x+y)
+```
+
+## Tipos de dados
+
+`R` lida com vários tipos básicos de dados.
+Alguns dos tipos mais básicos são:
+
+- Valores numéricos (`numeric`)
+    - Exemplos: `1`, `1.0`, `42.5`
+- Números inteiros (`integer`)
+    - Exemplos: `1L`, `2L`, `42L`
+- Números complexos
+    - Exemplo: `4 + 2i` 
+- Valores lógicos (`logical`): `TRUE` ou `FALSE`.
+    - Apesar de não ser recomendado, podemos usar `T` e `F`.
+    - `NA` (valores ausentes) também são considerados lógicos.
+- Texto / *strings* (`character`)
+    - Exemplos: `"a"`, `"Estatística"`, `"Análise de Dados"`
+
+
+Podemos verificar o tipo de informação no `R` usando a função `class ()`
+
+```{r}
+# Exemplo
+x <- 10
+class(x)
+```
+
+```{r}
+# Exemplo
+y <- "texto"
+class(y)
+```
+
+## Estruturas de dados
+
+`R` também possui várias estruturas básicas de dados. 
+Estas estrutura podem ser homogêneas, com todos os elementos do mesmo tipo de dados, ou heterogêneas, com os elementos de mais de um tipo de dados.
+
+| Dimensão  | **Homogeneas**  | **Heterogeneas**  |
+|-----------|-----------------|-------------------|
+| 1         | Vetores         | Listas            |
+| 2         | Matrizes        | Data Frame        |
+| 3 +       | Arrays          |                   |
+
+
+### Vetores
+De forma breve, um vetor no `R` é uma forma simples para armazenar dados, podendo conter dados numéricos, caracteres ou dados lógicos.
+
+Vetores são criados com a função de combinação `c( )`, em que os elementos são listados entre parênteses e separados por vírgula.
+
+```{r}
+# Vetor
+c(2, 4, 6, 8, 10)
+```
+Aqui o `R` simplesmente gerou o vetor. No próximo exemplo o vetor será armazenado na variável `x`.
+```{r}
+x <- c(1, 3, 5, 7, 9)
+x
+```
+Vetores em `R`devem conter elementos do mesmo tipo. Ao tentar inserir elementos diferentes em um vetor, eles serão automaticamente convertidos em um único tipo.
+
+```{r}
+c(17, "Estatística", TRUE)
+```
+
+Freqüentemente, precisamos criar vetores baseados em uma sequência de números. 
+A maneira mais rápida e fácil de fazer isso é com o operador `:`, que cria uma 
+sequência de números inteiros entre dois valores especificados.
+
+```{r}
+(y = 1:10)
+```
+Note que neste comando colocamos parênteses em torno da atribuição. Dessa forma o `R` armazenam o vetor em uma variável chamada `y` e imprime `y` no console.
+É a mesma operação dada a seguir.
+
+```{r}
+y <- c(1:10)
+y
+```
+Uma função nativa bastante interessante para criar uma sequência é a função `seq()`. Essa função é definida por um valor inicial (*start*), um valor final (*stop*) e um incremento (*step*).
+
+```{r}
+seq(from = 0, to = 100, by = 5)
+```
+
+### Operações sobre vetores
+Uma grande vantagem no uso do `R` é a aplicação de operações vetorizadas.
+
+Vejamos alguns exemplos e note que as operações são aplicadas sobre cada elemento do vetor `x`.
+
+```{r}
+x <- c(1:10)
+x + 1
+```
+
+```{r}
+2 * x
+```
+```{r}
+x^2
+```
+```{r}
+log(x)
+```
+
+**Indexação e subconjuntos**
+Elementos em um vetor são indexados, com índice iniciado em 1, $i = 1, 2, \cdots$.
+
+Podemos imprimir um elemento indicando o vetor e especificando o índice de um elemento entre colchetes `[ ]`.
+
+```{r}
+x <- seq(1, 20, 3)
+x
+```
+
+```{r}
+x[1]
+```
+Podemos definir um subconjunto de um vetor, especificando um intervalo entre colchetes.
+```{r}
+x[1:3]
+```
+
+### Operadores
+
+| Operador | Significado              | Exemplo       | Resultado     |
+|----------|--------------------------|-------------- |---------------|
+| `x < y`  | `x` menor que `y`        | `3 < 42`      | `r 3 < 42`    |
+| `x > y`  | `x` maior que `y`        | `3 > 42`      | `r 3 > 42`    |
+| `x <= y` | `x` menor ou igual a `y` | `3 <= 42`     | `r 3 <= 42`   |
+| `x >= y` | `x` maior ou igual a `y` | `3 >= 42`     | `r 3 >= 42`   |
+| `x == y` | `x`igual a `y`           | `3 == 42`     | `r 3 == 42`   |
+| `x != y` | `x` diferente de `y`     | `3 != 42`     | `r 3 != 42`   |
+| `!x`     |  não `x`                 | `!(3 > 42)`   | `r !(3 > 42)` |
+| `x | y`  | `x` ou `y`     | `(3 > 42) | TRUE` | `r (3 > 42) | TRUE` |
+| `x & y`  | `x` e `y`      | `(3 < 4) & ( 42 > 13)` | `r (3 < 4) & ( 42 > 13)` |
+
+Em `R`, os operadores lógicos são vetorizados.
+
+```{r}
+x <- c(1:10)
+x > 5
+```
+
+```{r}
+x == 3
+```
+
+```{r}
+x >= 3 & x <= 5
+```
+
+
+### Matrizes
+`R`também pode ser usado para realizar cálculos com matrizes. 
+As matrizes podem ser criadas usando a função `matrix`.
+
+### Cálculos com vetores e matrizes
+
+
+### Listas
+
+
+### Data Frames
+
+
+

@@ -1,0 +1,7 @@
+# Prefácio {.unnumbered}
+
+Este livro está em desenvolvimento.
+
+R é uma linguagem de programação, criada originalmente por Ross Ihaka e por Robert Gentleman no departamento de Estatística da Universidade de Auckland, Nova Zelândia.
+
+A R disponibiliza uma ampla variedade de técnicas estatísticas e gráficas o que a torna extremamente poderosa para a análise de dados.
