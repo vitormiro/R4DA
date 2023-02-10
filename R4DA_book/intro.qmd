@@ -1,9 +1,27 @@
-# Introduction
+# Introdução
 
-This is a book created from markdown and executable code.
+A linguagem de computação estatística [`R`](https://cran.r-project.org/) tornou-se comum para muitas aplicações, sejam em estudos acadêmicos, no governo ou na indústria.
 
-See @knuth84 for additional discussion of literate programming.
+## `R` e `RStudio`
 
-```{r}
-1 + 1
+Como `R`é um software gratuito e de código aberto, você pode simplesmente baixá-lo no seguinte link: https://cran.r-project.org/.
+
+Embora `R` possa ser usado "como está" para muitos propósitos, é fortemente recomendável o de uma IDE chamada `RStudio`. Existem várias versões do RStudio para diferentes usuários (Desktop, Comercial, Servidor, etc.). A versão gratuita do RStudio Desktop é suficiente para nossos propósitos. O RStudio pode ser baixado no seguinte link: https://www.rstudio.com/.
+
+## Bibliotecas/ pacotes
+
+`R` possui várias funções integradas/ nativas, mas uma de suas principais vantagens é que existe um grande número de pacotes disponíveis para instalação e uso. Esses pacotes fornecem funções, recursos e dados adicionais para o ambiente `R`.
+
+Os pacotes podem ser instalados de várias maneiras, mas a abordagem mais usual é por meio da função `install.packages()`. Os pacotes intalados dessa forma são aqueles que estão disponíveis no repositório CRAN.
+
+Por exemplo, se desejamos instalar o pacote `tidyverse`:
+
+```{r, eval=FALSE}
+install.packages("tidyverse")
+```
+
+Depois que um pacote é instalado, ele não pode ser usado diretamente na sessão do `R`. Para fazer isso, temos que "carregar" o pacote na sessão atual, o que geralmente é feito por meio da função `library()`.
+
+```{r, eval=FALSE}
+library(tidyverse)
 ```
