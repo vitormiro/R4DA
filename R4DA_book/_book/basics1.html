@@ -94,7 +94,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <script src="site_libs/quarto-search/fuse.min.js"></script>
 <script src="site_libs/quarto-search/quarto-search.js"></script>
 <meta name="quarto:offset" content="./">
-<link href="./summary.html" rel="next">
+<link href="./basics2.html" rel="next">
 <link href="./intro.html" rel="prev">
 <script src="site_libs/quarto-html/quarto.js"></script>
 <script src="site_libs/quarto-html/popper.min.js"></script>
@@ -175,7 +175,12 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./summary.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">Summary</span></a>
+  <a href="./basics2.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">Programação Básica - 2</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./summary.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">Summary</span></a>
   </div>
 </li>
         <li class="sidebar-item">
@@ -205,10 +210,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
   <li><a href="#cálculos-com-vetores-e-matrizes" id="toc-cálculos-com-vetores-e-matrizes" class="nav-link" data-scroll-target="#cálculos-com-vetores-e-matrizes"><span class="toc-section-number">2.2.3</span>  Cálculos com vetores e matrizes</a></li>
   <li><a href="#fatores" id="toc-fatores" class="nav-link" data-scroll-target="#fatores"><span class="toc-section-number">2.2.4</span>  Fatores</a></li>
   <li><a href="#data-frames" id="toc-data-frames" class="nav-link" data-scroll-target="#data-frames"><span class="toc-section-number">2.2.5</span>  Data Frames</a></li>
-  </ul></li>
-  <li><a href="#sumário-estatístico" id="toc-sumário-estatístico" class="nav-link" data-scroll-target="#sumário-estatístico"><span class="toc-section-number">2.3</span>  Sumário estatístico</a>
-  <ul class="collapse">
-  <li><a href="#listas" id="toc-listas" class="nav-link" data-scroll-target="#listas"><span class="toc-section-number">2.3.1</span>  Listas</a></li>
+  <li><a href="#listas" id="toc-listas" class="nav-link" data-scroll-target="#listas"><span class="toc-section-number">2.2.6</span>  Listas</a></li>
   </ul></li>
   </ul>
 </nav>
@@ -1694,10 +1696,8 @@ Levels: C &lt; B &lt; A</code></pre>
 </div>
 <p>cidades também pode ser convertido.</p>
 </section>
-</section>
-</section>
-<section id="sumário-estatístico" class="level2" data-number="2.3">
-<h2 data-number="2.3" class="anchored" data-anchor-id="sumário-estatístico"><span class="header-section-number">2.3</span> Sumário estatístico</h2>
+<section id="sumário-estatístico" class="level4" data-number="2.2.5.4">
+<h4 data-number="2.2.5.4" class="anchored" data-anchor-id="sumário-estatístico"><span class="header-section-number">2.2.5.4</span> Sumário estatístico</h4>
 <p>A função <code>summary</code> também se aplica para um sumário estatístico das colunas de um Data Frames.</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb196"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb196-1"><a href="#cb196-1" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(df)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
@@ -1718,12 +1718,14 @@ Levels: C &lt; B &lt; A</code></pre>
  Max.   :84.20   Max.   :3.500                     </code></pre>
 </div>
 </div>
-<section id="listas" class="level3" data-number="2.3.1">
-<h3 data-number="2.3.1" class="anchored" data-anchor-id="listas"><span class="header-section-number">2.3.1</span> Listas</h3>
+</section>
+</section>
+<section id="listas" class="level3" data-number="2.2.6">
+<h3 data-number="2.2.6" class="anchored" data-anchor-id="listas"><span class="header-section-number">2.2.6</span> Listas</h3>
 <p>Em <code>R</code> uma lista é uma estrutura de dados heterogênea unidimensional.As listas são indexadas como os vetores, com um único valor inteiro, mas cada elemento pode conter um elemento de qualquer tipo: texto, números, vetores, matrizes, data frames, ou mesmo outras listas.</p>
 <p>A lista é uma estrutura de dados versátil podendo conter elementos de diferentes tipos e de tamanhos diferentes. A principal função para as listas é servir como um <strong>container</strong> para armazenar qualquer número de itens de qualquer tipo.</p>
-<section id="criando-listas" class="level4" data-number="2.3.1.1">
-<h4 data-number="2.3.1.1" class="anchored" data-anchor-id="criando-listas"><span class="header-section-number">2.3.1.1</span> Criando listas</h4>
+<section id="criando-listas" class="level4" data-number="2.2.6.1">
+<h4 data-number="2.2.6.1" class="anchored" data-anchor-id="criando-listas"><span class="header-section-number">2.2.6.1</span> Criando listas</h4>
 <p>Listas podem ser criadas com a função <code>list()</code> e a especificação do seu conteúdo é feita com a função <code>c()</code> que vismos desde a criação de vetores.</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb198"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb198-1"><a href="#cb198-1" aria-hidden="true" tabindex="-1"></a>vec <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">1</span>,<span class="dv">2</span>,<span class="dv">3</span>)</span>
@@ -1754,8 +1756,8 @@ Levels: C &lt; B &lt; A</code></pre>
 </div>
 </div>
 </section>
-<section id="criando-uma-lista-nomeada" class="level4" data-number="2.3.1.2">
-<h4 data-number="2.3.1.2" class="anchored" data-anchor-id="criando-uma-lista-nomeada"><span class="header-section-number">2.3.1.2</span> Criando uma lista nomeada</h4>
+<section id="criando-uma-lista-nomeada" class="level4" data-number="2.2.6.2">
+<h4 data-number="2.2.6.2" class="anchored" data-anchor-id="criando-uma-lista-nomeada"><span class="header-section-number">2.2.6.2</span> Criando uma lista nomeada</h4>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb202"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb202-1"><a href="#cb202-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Vetor</span></span>
 <span id="cb202-2"><a href="#cb202-2" aria-hidden="true" tabindex="-1"></a>nomes <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">"Fortaleza"</span>, <span class="st">"Recife"</span>, <span class="st">"Salvador"</span>) </span>
@@ -1937,8 +1939,8 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
       </a>          
   </div>
   <div class="nav-page nav-page-next">
-      <a href="./summary.html" class="pagination-link">
-        <span class="nav-page-text"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">Summary</span></span> <i class="bi bi-arrow-right-short"></i>
+      <a href="./basics2.html" class="pagination-link">
+        <span class="nav-page-text"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">Programação Básica - 2</span></span> <i class="bi bi-arrow-right-short"></i>
       </a>
   </div>
 </nav>
