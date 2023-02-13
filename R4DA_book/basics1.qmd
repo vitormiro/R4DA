@@ -135,7 +135,6 @@ class(y)
 | 2        | Matrizes       | Data Frame       |
 | 3 +      | Arrays         |                  |
 
-
 ### Vetores
 
 De forma breve, um vetor no `R` é uma forma simples para armazenar dados, podendo conter dados numéricos, caracteres ou dados lógicos.
@@ -229,7 +228,7 @@ z[1:3]
 #### Operadores
 
 | Operador | Significado              | Exemplo                | Resultado                |
-|-----------------|--------------------|-----------------|-----------------|
+|------------------|--------------------|------------------|------------------|
 | `x < y`  | `x` menor que `y`        | `3 < 42`               | `r 3 < 42`               |
 | `x > y`  | `x` maior que `y`        | `3 > 42`               | `r 3 > 42`               |
 | `x <= y` | `x` menor ou igual a `y` | `3 <= 42`              | `r 3 <= 42`              |
@@ -823,12 +822,253 @@ factor_conceito[1] > factor_conceito[2]
 factor_conceito[2] < factor_conceito[4]
 ```
 
-
-
 ### Data Frames
+
+Vimos que as matrizes são objetos bidimensionais constituídos por linhas e colunas. 
+Seus elementos assim como os vetores podem ser de apenas de um tipo, ou seja, matrizes no `R` podem ser constituídas unicamente por caracteres, números ou valores lógicos.
+
+Ao contrário de uma matriz, um **Data Frame** não precisa ter o mesmo tipo de dados para cada elemento. 
+Um Data Frame é uma lista de vetores em que cada vetor deve conter o mesmo tipo de dados, mas os diferentes vetores podem armazenar dados de diferentes tipos.
+
+Geralmente, podemos pensar no Data Frame como uma tabela de dados em que cada linha representa uma unidade observacional e cada coluna representa uma variável.
+
+
+Vamos iniciar criando vetores para armazenar informações de um conjunto de pessoas.
+```{r}
+# Criar vetores com caracteristicas de pessoas
+nome = c("Pedro", "João", "Camila", "Lucas", "Juliana", "Marcos")
+sexo = c("masculino", "masculino", "feminino", "masculino", "feminino", "masculino")
+idade = c(22, 21, 18, 20, 23, 19)
+altura = c(1.82, 1.78, 1.69, 1.70, 1.65, 1.68)
+peso = c(79.7, 80.1, 66.5, 75.4, 58, 84.2)
+renda = c(2.0, 3.0, NA, 2.2, 2.5, 3.5)
+```
+
+A partir da informação armazenada nestes vetores, podemos aplicar a função `data.frame` para criar o Data Frame, nomeado como *df*. A função `head()` exibe as primeiras 6 linhas do Data Frame.
+```{r}
+# Criar um data frame a partir dos vetores
+df <- data.frame(nome, sexo, idade, altura, peso, renda)
+
+# A função head() exibe as 6 primeiras linhas do Data Frame
+head(df)
+```
+
+A função `str()` exibe informações sobre a estrutura do Data Frame.
+
+```{r}
+str(df)
+```
+
+Algumas outras funções fornecem informações pontuais sobre o Data Frame como as funções:
+- `ncol()` - número de colunas,
+- `nrow()` - número de linhas,
+- `dim()` - dimensão (nº de linhas e colunas)
+- `colnames()` - nome das colunas.
+
+```{r}
+# Número de colunas/ variáveis
+ncol(df)
+```
+
+```{r}
+# Número de linhas/ observações
+nrow(df)
+```
+
+```{r}
+# Dimensão do Data Frame (n. de linhas x n. de colunas)
+dim(df)
+```
+
+```{r}
+# Nome das colunas / variáveis
+colnames(df)
+```
+O tipo de cada coluna individualmente pode ser verificado com a função `class`
+```{r}
+class(nome)
+class(idade)
+```
+
+#### Consultando dados no Data Frame
+
+A manipulação de data frames é similar à manipulação de matrizes. 
+A seleção de elementos segue a mesma lógica. 
+Vamos selecionar a terceira linha da segunda coluna do nosso data frame `df`.
+
+```{r}
+# Consultar informação da 3ª linha e 1º coluna
+df[3, 1]
+```
+Selecionar variáveis em um data frame, e no presente caso imprimir as informações, é bastante simples usando o comando: `df$x`. Veja que usamos o cifrão *$* entre o nome do data frame *df* e a variável que desejamos selecionar *x*. 
+
+```{r}
+# Ver informações da variável sexo
+df$sexo
+```
+Vimos anteriormente a função `head()` que exibe as seis primeiras linhas do data frame.
+De forma similar, a função `tail()` permite visualizar as seis últimas linhas.
+
+```{r}
+tail(df)
+```
+Quando queremos selecionar linhas e colunas específicas, o método de indexação é o seguinte: `objeto[linhas,colunas]`. Este método de indexação permite total flexibilidade e controle.
+
+```{r}
+# Seleciona apenas primeira linha 
+df[1, ]        
+```
+
+Observação: espaço vazio dentro do colchetes diz para o R selecionar todas as colunas. 
+O mesmo se aplica se o espaço das linhas for deixado em branco `dados[ ,colunas]`.
+
+```{r}
+# Seleciona as 3 primeiras linhas
+df[1:3, ]        
+```
+
+```{r}
+# Seleciona a primeira, a segunda e quinta linhas
+df[c(1,2,5), ]
+```
+
+```{r}
+# Seleciona a sexta coluna (todas as linhas)
+df[, 6]
+
+```
+Agora vamos visualizar o valor de uma linha específica para uma variável selecionada.
+```{r}
+# Ver altura na 3ª linha
+df[3, 4]
+```
+Essa informação também poderia ser consultada ao especificar a coluna, assim:
+```{r}
+# Ver altura na 3ª linha
+df$altura[3]
+```
+
+Podemos verificar apenas um subconjunto de variáveis (colunas) no Data Frame.
+```{r}
+# Vizualizar variáveis selecionadas
+df[ ,c("nome", "sexo", "renda")]
+```
+Podemos selecionar dados usando condições lógicas.
+
+```{r}
+df$altura > 1.70
+```
+Mostrando todas as colunas para observações que atendem uma condição.
+```{r}
+df[df$altura > 1.70 , ]
+```
+Podemos combinar condições.
+```{r}
+df[df$altura <= 1.70 & df$sex == "masculino"  ,  ]
+```
+Também é possível fazer a seleção de informações conforme critérios usando a função `subset()`.
+A regra geral desta função é: `subset(dados,condição)`.
+```{r}
+subset(df, idade > 21)
+```
+
+#### Adicionando ou excluindo colunas
+
+Para adicionar uma coluna é utilizar a regra: `objeto$nova_coluna <- vetor`.
+
+```{r}
+# Adicionar ao df um vetor com cidades
+df$cidades <- c("São Paulo", "Brasília", "Belo Horizonte", "Recife", "Curitiba", "São Paulo")
+head(df)
+```
+Se criarmos uma coluna nova a partir de um valor, `R` irá repetir esse valor para toda a coluna.
+
+```{r}
+# Adicionar ao df uma coluna com o "pais = Brasil"
+df$pais <- "Brasil"
+head(df)
+```
+
+Para remover uma coluna do data frame podemos usar a regra: `objeto$coluna <- NULL`:
+```{r}
+# Remover coluna "pais"
+df$pais <- NULL
+head(df)
+```
+
+Podemos substituir valores de uma data frame com a seguinte regra básica `objeto[linha,coluna] <- valor`.
+```{r}
+# Remover coluna "pais"
+df[3, 6] <- 2.0
+head(df)
+```
+
+#### Transformar uma variável categórica em fator
+
+```{r}
+df$sexo <- as.factor(df$sexo)
+str(df)
+```
+cidades também pode ser convertido.
+
+#### Sumário estatístico
+A função `summary` também se aplica para um sumário estatístico das colunas de um Data Frames.
+```{r}
+summary(df)
+```
 
 
 ### Listas
+
+Em `R` uma lista é uma estrutura de dados heterogênea unidimensional.As listas são indexadas como os vetores, com um único valor inteiro, mas cada elemento pode conter um elemento de qualquer tipo: texto, números, vetores, matrizes, data frames, ou mesmo outras listas.
+
+A lista é uma estrutura de dados versátil podendo conter elementos de diferentes tipos e de tamanhos diferentes. 
+A principal função para as listas é servir como um **container** para armazenar qualquer número de itens de qualquer tipo.
+
+#### Criando listas
+Listas podem ser criadas com a função `list()` e a especificação do seu conteúdo é feita com a função `c()` que vismos desde a criação de vetores.
+
+```{r}
+vec <- c(1,2,3)
+vec_char <- c("Estatística", "Matemática", "Economia", "Programação")
+vec_logic <- c(TRUE, FALSE, TRUE, FALSE)
+lista1 <- list(vec, vec_char, vec_logic)
+lista1
+```
+
+Note o resultado acima. Os índices em colchetes duplos `[[]]` identificam o elemento ou a componente da lista. Os índices em colchete simples `[]` indicam qual sub-elemento da lista está sendo mostrado. 
+A estrutura de uma lista pode se tornar complicada com o aumento do grau de sub-elementos. Mas essa flexibilidade, faz das listas uma ferramenta de armazenamento de dados para diversos propósitos.
+
+Podemos visualizar a estrutura de uma lista com a função `str()`.
+```{r}
+str(lista1)
+```
+
+#### Criando uma lista nomeada
+
+```{r}
+# Vetor
+nomes <- c("Fortaleza", "Recife", "Salvador") 
+
+# Matriz
+distancias <- matrix(c(0, 760, 1180, 760, 0 , 807, 1180, 807, 0), ncol = 3)
+
+# Data Frame
+dados <- data.frame(cidade = c("Fortaleza", "Recife", "Salvador"),
+                    pop = c(2.7, 1.66, 2.9),
+                    idhm = c(0.754, 0.772, 0.759))
+
+# Criar listas com os elementos acima
+lista_cidades <- list(cidades = nomes, dist = distancias, df = dados)
+
+# Imprimir lista
+lista_cidades
+
+```
+
+
+
+
 
 
 
