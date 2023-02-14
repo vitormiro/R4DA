@@ -8,11 +8,17 @@ book:
   chapters:
     - index.qmd
     - intro.qmd
-    - basics1.qmd
-    - basics2.qmd
+    - part: "Programação básica em R"
+      chapters:
+        - basics1.qmd
+        - basics2.qmd
+        - basics3.qmd
+        - basics4.qmd
     - summary.qmd
     - references.qmd
-
+  search:
+    location: sidebar
+    
 bibliography: references.bib
 
 format:

@@ -1,0 +1,336 @@
+---
+title: "Estruturas de controle"
+author: "Vitor Hugo Miro"
+---
+
+## Estruturas de controle
+
+As estruturas de controle em `R` permitem controlar o fluxo de execução de comandos em um algoritmo.
+
+Em computação as estruturas de controle básicas são:
+
+-   **Condicionais**: usados para executar uma ou mais instruções se uma condição for atendida.
+
+-   **Iterações/ laços (loops)**: o objetivo é repetir um comando determinado número de vezes ou enquanto uma condição é cumprida.
+
+
+## Estruturas Condicionais
+
+As estruturas condicionais são úteis quando queremos analisar um conjunto de condições e decidir por um conjunto de ações a ser executado de acordo com estas condições.
+
+A aplicação das estruturas condicionais conta com as instruções `if` , `elif` e `else`.
+
+### Operadores relacionais
+
+#### Operador de igualdade: "=="
+
+Comparações de igualdade são a forma mais simples.
+
+```{r}
+TRUE == TRUE
+```
+
+```{r}
+TRUE == FALSE
+```
+
+#### Operador de diferença: "!="
+
+```{r}
+TRUE != FALSE
+```
+
+#### Desigualdades: "\>" e "\<"
+
+Comparações numéricas:
+
+```{r}
+3 > 5
+```
+
+```{r}
+3 < 5
+```
+
+Na comparação de strings, `R` determina a relação com base na ordem alfabética.
+
+```{r}
+"Cães" > "Gatos"
+```
+
+No caso de valores booleanos `TRUE` é tratado como "1" para aritmética e `FALSE` é tratado como "0". Portanto:
+
+```{r}
+TRUE > FALSE
+```
+
+```{r}
+TRUE == 1
+```
+
+#### Aplicações em vetores
+
+Como vimos no capítulo anterior, os operadores relacionais também se aplicam a vetores.
+
+```{r}
+v1 <- c(8, 9, 7, 5, 4, 7, 8, 6)
+v2 <- c(9, 8, 9, 10, 8, 6, 7, 6)
+```
+
+```{r}
+v1 > 7
+```
+
+```{r}
+v2 < 7
+```
+
+```{r}
+v1 > v2
+```
+
+#### Aplicações em matrizes
+
+```{r}
+# Criar uma matriz com os vetores acima
+M <- matrix(c(v1, v2), nrow = 2, byrow = TRUE)
+M
+```
+
+```{r}
+M <=7
+```
+
+### Operadores lógicos
+
+#### O operador "&" ("e")
+
+```{r}
+TRUE & TRUE
+
+TRUE & FALSE
+
+FALSE & TRUE
+
+FALSE & FALSE
+```
+
+```{r}
+x <- 12
+x > 5 & x < 15
+```
+
+#### O operador "\|" ("ou")
+
+```{r}
+TRUE | TRUE
+
+TRUE | FALSE
+
+FALSE | TRUE
+
+FALSE | FALSE
+```
+
+```{r}
+y <-4
+y < 5 | y > 10
+```
+
+#### O operador "!" ("não")
+
+```{r}
+!TRUE
+
+!FALSE
+```
+
+```{r}
+is.numeric(5)
+
+!is.numeric(5)
+```
+
+#### Aplicando em vetores
+
+```{r}
+c(TRUE, FALSE, TRUE) & c(TRUE, FALSE, FALSE)
+
+c(TRUE, FALSE, TRUE) | c(TRUE, FALSE, FALSE)
+```
+
+```{r}
+c(TRUE, FALSE, TRUE) && c(TRUE, FALSE, FALSE)
+
+c(TRUE, FALSE, TRUE) || c(TRUE, FALSE, FALSE)
+```
+
+
+## Comandos condicionais
+
+Um comando condicional é aquele que permite decidir se um determinado bloco de comandos deve ou não ser executado, a partir do resultado de uma expressão relacional ou lógica.
+
+### `IF`
+
+O comando `if` é usado para testar uma condição e executar uma ação específica se a condição for verdadeira. É uma das estruturas de controle de fluxo básicas em `R`. A sintaxe geral do comando if no `R` é:
+
+    if (condição) {
+      # código a ser executado se a condição for verdadeira
+    }
+
+A 'condição' é uma expressão que retorna `TRUE` ou `FALSE`. Se a condição for verdadeira, o código dentro do bloco será executado, caso contrário, o código será ignorado. É importante observar que o bloco de código dentro do `if` deve ser escrito entre chaves `{}`.
+
+Vemos ver alguns exemplos.
+
+-   Exemplo
+
+```{r}
+## IF
+x <- 5
+
+if (x > 0) {
+  print("x é positivo")
+}
+```
+
+### `IF ELSE`
+
+O comando `if` pode ser combinado com o comando `else` para especificar o que acontecerá se a condição não for verdadeira. A sintaxe para o comando `if...else` é:
+
+    if (condição) {
+      # código a ser executado se a condição for verdadeira
+    } else {
+      # código a ser executado se a condição for falsa
+    }
+
+-   Exemplo
+
+```{r}
+if (x > 0) {
+  print("x é positivo")
+} else {
+  print("x é negativo ou zero")
+}
+```
+
+### `IF...ELSE IF...ELSE`
+
+Também podemos especificar uma sequência de testes condicionais usando o comando `else if`, seguindo o `if` inicial. Se a primeira condição não for verdadeira, o R passará para a próxima condição e assim por diante, até que uma condição verdadeira seja encontrada ou até que se chegue ao final das condições. Se nenhuma condição for verdadeira, o bloco de código associado ao comando `else` será executado.
+
+A sintaxe para o comando `if...else if...else` é:
+
+    if (condição1) {
+      # código a ser executado se a condição1 for verdadeira
+    } else if (condição2) {
+      # código a ser executado se a condição1 for falsa e a condição2 for verdadeira
+    } else if (condição3) {
+      # código a ser executado se as condições 1 e 2 forem falsas e a condição3 for verdadeira
+    } ...
+    else {
+      # código a ser executado se nenhuma condição for verdadeira
+    }
+
+-   Exemplo
+
+```{r}
+x <- 3
+if (x > 5) {
+  print("x é maior do que 5")
+} else if (x < 5 & x > 0) {
+  print("x é maior que 0 e menor que 5")
+} else if (x == 0) {
+  print("x é igual a 0")
+} else {
+  print("x é menor ou igual a 0")
+}
+```
+
+-   Exemplo
+
+```{r}
+x <- 6
+if (x %% 2 == 0){
+    print("x é divisível por 2")
+} else if (x %% 3 == 0){
+    print("x é divisível por 3")
+} else {
+    print("x não é divisível por 2 ou 3")
+}
+```
+
+## Laços 
+
+Um *laço de repetição* ou *loop* permite várias execuções de uma instrução ou um conjunto de instruções. Existem dois componentes em um *loop*: a instrução de controle e o corpo do loop.
+A instrução de controle gerencia a execução das instruções dependendo da condição. 
+Neste componente o *loop* faz uma consulta e se a resposta exigir uma ação, ela será executada. A mesma consulta é feita repetidas vezes até que outras ações sejam tomadas.
+Sempre que a consulta é feita no *loop*, ela é conhecida como uma iteração do loop.
+Por sua vez, o corpo do *loop* consiste no conjunto de instruções a serem executadas.
+
+
+### Laços `FOR`
+
+O *loop* `FOR` em ``R` é uma estrutura de controle que permite executar um conjunto de instruções repetidamente com base em um número específico de iterações. 
+Neste *loop* a condição de teste é verificada primeiro, sendo válida, o corpo do *loop* é executado. 
+
+A sintaxe básica de um *loop* `FOR` em ``R` é a seguinte:
+
+```
+for (variavel in sequencia) {
+  # conjunto de instruções a serem executadas em cada iteração
+}
+```
+
+- Exemplo:
+```{r}
+for (i in 1:5) {
+  print(i)
+}
+```
+
+- Exemplo:
+```{r}
+america_sul <- c('Argentina', 'Bolivia', 'Brasil', 'Chile', 'Colômbia', 'Equador', 
+             'Paraguai', 'Peru', 'Uruguai')
+
+for (pais in america_sul){
+    print(pais)
+}
+
+```
+
+O *loop* `FOR` também pode ser aninhado dentro de outros *loops* ou estruturas de controle para executar tarefas mais complexas.
+
+Em `R` é importante lembrar que, em alguns casos, pode ser mais eficiente e mais fácil usar funções como `apply()` e `lapply()` em vez de *loops* `FOR`. Vamos ver essas funções um pouco mais adiante.
+
+
+### Laços `WHILE`
+
+O *loop* `WHILE` é uma estrutura de controle que permite repetir um conjunto de instruções enquanto uma determinada condição for verdadeira.
+
+A sintaxe básica do *loop* `WHILE` em `R` é a seguinte:
+```
+while (condicao) {
+  # conjunto de instruções a serem executadas enquanto a condição for verdadeira
+}
+```
+Na sintaxe acima, a condição é uma expressão lógica que é avaliada a cada iteração do *loop*. Enquanto a condição for verdadeira, o conjunto de instruções dentro das chaves é executado repetidamente.
+
+```{r}
+i <- 3
+while (i <= 5) {
+  print(i)
+  i <- i + 1
+}
+```
+
+
+
+
+
+
+
+
+
+
+
+
