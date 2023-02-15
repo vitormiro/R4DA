@@ -13,7 +13,6 @@ Em computação as estruturas de controle básicas são:
 
 -   **Iterações/ laços (loops)**: o objetivo é repetir um comando determinado número de vezes ou enquanto uma condição é cumprida.
 
-
 ## Estruturas Condicionais
 
 As estruturas condicionais são úteis quando queremos analisar um conjunto de condições e decidir por um conjunto de ações a ser executado de acordo com estas condições.
@@ -165,7 +164,6 @@ c(TRUE, FALSE, TRUE) && c(TRUE, FALSE, FALSE)
 c(TRUE, FALSE, TRUE) || c(TRUE, FALSE, FALSE)
 ```
 
-
 ## Comandos condicionais
 
 Um comando condicional é aquele que permite decidir se um determinado bloco de comandos deve ou não ser executado, a partir do resultado de uma expressão relacional ou lógica.
@@ -258,36 +256,30 @@ if (x %% 2 == 0){
 }
 ```
 
-## Laços 
+## Laços
 
-Um *laço de repetição* ou *loop* permite várias execuções de uma instrução ou um conjunto de instruções. Existem dois componentes em um *loop*: a instrução de controle e o corpo do loop.
-A instrução de controle gerencia a execução das instruções dependendo da condição. 
-Neste componente o *loop* faz uma consulta e se a resposta exigir uma ação, ela será executada. A mesma consulta é feita repetidas vezes até que outras ações sejam tomadas.
-Sempre que a consulta é feita no *loop*, ela é conhecida como uma iteração do loop.
-Por sua vez, o corpo do *loop* consiste no conjunto de instruções a serem executadas.
-
+Um *laço de repetição* ou *loop* permite várias execuções de uma instrução ou um conjunto de instruções. Existem dois componentes em um *loop*: a instrução de controle e o corpo do loop. A instrução de controle gerencia a execução das instruções dependendo da condição. Neste componente o *loop* faz uma consulta e se a resposta exigir uma ação, ela será executada. A mesma consulta é feita repetidas vezes até que outras ações sejam tomadas. Sempre que a consulta é feita no *loop*, ela é conhecida como uma iteração do loop. Por sua vez, o corpo do *loop* consiste no conjunto de instruções a serem executadas.
 
 ### Laços `FOR`
 
-O *loop* `FOR` em ``R` é uma estrutura de controle que permite executar um conjunto de instruções repetidamente com base em um número específico de iterações. 
-Neste *loop* a condição de teste é verificada primeiro, sendo válida, o corpo do *loop* é executado. 
+O *loop* `FOR` em \``R` é uma estrutura de controle que permite executar um conjunto de instruções repetidamente com base em um número específico de iterações. Neste *loop* a condição de teste é verificada primeiro, sendo válida, o corpo do *loop* é executado.
 
-A sintaxe básica de um *loop* `FOR` em ``R` é a seguinte:
+A sintaxe básica de um *loop* `FOR` em \``R` é a seguinte:
 
-```
-for (variavel in sequencia) {
-  # conjunto de instruções a serem executadas em cada iteração
-}
-```
+    for (variavel in sequencia) {
+      # conjunto de instruções a serem executadas em cada iteração
+    }
 
-- Exemplo:
+-   Exemplo:
+
 ```{r}
 for (i in 1:5) {
   print(i)
 }
 ```
 
-- Exemplo:
+-   Exemplo:
+
 ```{r}
 america_sul <- c('Argentina', 'Bolivia', 'Brasil', 'Chile', 'Colômbia', 'Equador', 
              'Paraguai', 'Peru', 'Uruguai')
@@ -302,17 +294,16 @@ O *loop* `FOR` também pode ser aninhado dentro de outros *loops* ou estruturas 
 
 Em `R` é importante lembrar que, em alguns casos, pode ser mais eficiente e mais fácil usar funções como `apply()` e `lapply()` em vez de *loops* `FOR`. Vamos ver essas funções um pouco mais adiante.
 
-
 ### Laços `WHILE`
 
 O *loop* `WHILE` é uma estrutura de controle que permite repetir um conjunto de instruções enquanto uma determinada condição for verdadeira.
 
 A sintaxe básica do *loop* `WHILE` em `R` é a seguinte:
-```
-while (condicao) {
-  # conjunto de instruções a serem executadas enquanto a condição for verdadeira
-}
-```
+
+    while (condicao) {
+      # conjunto de instruções a serem executadas enquanto a condição for verdadeira
+    }
+
 Na sintaxe acima, a condição é uma expressão lógica que é avaliada a cada iteração do *loop*. Enquanto a condição for verdadeira, o conjunto de instruções dentro das chaves é executado repetidamente.
 
 ```{r}
@@ -323,14 +314,62 @@ while (i <= 5) {
 }
 ```
 
+- Exemplo
+```{r}
+# Vamos começar com uma variável velicidade (velo)
+velo <- 84
 
+# loop while 
+while (velo >= 50) {
+    print("Reduza a velocidade!")
+    velo <- velo - 7
+}
 
+# Imprimir velo
+velo
+```
 
+- Exemplo
+```{r}
+# Vamos começar com uma variável velicidade (velo)
+velo <- 94
 
+# Vamos estender o loop while
+while (velo > 60) {
+    print(paste("Sua velocidade é", velo))
+    if ( velo > 80) {
+        print("Reduza a velocidade!")
+        velo <- velo - 10
+    } else {
+        print("Reduza a velocidade!")
+        velo <- velo - 5
+    }
+}
+```
 
+- Exemplo
+```{r}
 
+# Vamos começar com uma variável velicidade (velo)
+velo <- 94
 
-
+while (velo > 50) {
+    print(paste("Sua velocidade é", velo))
+    
+    # Break o loop while quando a velocidade exceder 90
+    if (velo > 90) {
+        break
+    }
+    
+    if (velo > 60) {
+        print("Reduza a velocidade!")
+        velo <- velo - 10
+    } else {
+        print("Reduza mais um pouco!")
+        velo <- velo - 5
+    }
+}
+```
 
 
 
